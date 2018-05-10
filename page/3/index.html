@@ -109,7 +109,7 @@ body{ -webkit-animation: bugfix infinite 1s; }
           <!-- <div class="icon"></div> -->
             
     
-      <h1 class="metro-title transition"><a href="/2018/04/17/linux/linux监控命令/">linux 监控命令</a></h1>
+      <h1 class="metro-title transition"><a href="/2018/04/17/spring/aop/">aop</a></h1>
     
   
           <ul>
@@ -136,64 +136,8 @@ body{ -webkit-animation: bugfix infinite 1s; }
       <div class="entry">
         
           
-            <h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
-<li><p>每5秒查看磁盘io情况</p>
-<p>iostat -xm 5</p>
-</li>
-<li><p>查看系统内存，io速度，系统中断，上下文切换等信息</p>
-<p>vmstat 1</p>
-</li>
-<li><p>网络配置文件</p>
-<p>/etc/sysconfig/network-scripts/</p>
-</li>
-<li><p>sar</p>
-<p>-A：所有报告的总和<br>-u：输出CPU使用情况的统计信息<br>-v：输出inode、文件和其他内核表的统计信息<br>-d：输出每一个块设备的活动信息<br>-r：输出内存和交换空间的统计信息<br>-b：显示I/O和传送速率的统计信息<br>-a：文件读写情况<br>-c：输出进程统计信息，每秒创建的进程数<br>-R：输出内存页面的统计信息<br>-y：终端设备活动情况<br>-w：输出系统交换活动信息</p>
-</li>
-</ul>
-<p>​     sar -P ALL 打印所有cpu监控信息</p>
-<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><ul>
-<li><p>定位服务器丢包问题</p>
-<ol>
-<li><p>netstat -i 查看RX-DRP,TX-DRP</p>
-</li>
-<li><p>dropwatch 可以查看哪个内核方法丢的数据包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dropwatch -l kas</span><br><span class="line">start</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>perf 监视kfree_skb 事件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo perf record -g -a -e skb:kfree_skb</span><br><span class="line">sudo perf script</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>tcpdump 两端抓包</p>
-</li>
-</ol>
-<p>​</p>
-</li>
-<li><p>tcpdump 抓包</p>
-<ol>
-<li>tcpdump -pni eth0 host 172.16.0.3 and port 3306-s65535 -G 3600 -w ‘trace_%Y-%m-%d_%H:%M:%S.pcap’</li>
-</ol>
-</li>
-<li><p>dns 配置文件</p>
-<p>/etc/resolv.conf</p>
-</li>
-<li><p>查询dns</p>
-<p>nslookup,dig</p>
-</li>
-<li><p>MSS 默认536字节，以太网MSS可达1460</p>
-</li>
-<li><p>IP数据报头部40字节：20字节TCP首部，20字节IP首部</p>
-</li>
-<li><p>wireshark</p>
-<ol>
-<li>ip.src==192.168.0.2 and ip.dst==192.168.0.233 and tcp.port==965  </li>
-<li>tcp contains “http”</li>
-<li>http.request.uri contains “online”</li>
-</ol>
-</li>
-<li><p>lsof -i</p>
-</li>
-<li><p>netstat -anlp</p>
-</li>
-</ul>
+            <h2 id="advice"><a href="#advice" class="headerlink" title="advice"></a>advice</h2><p>定义在连接点做什么，为切面增强提供织入接口。</p>
+<h2 id="PointCut-切点"><a href="#PointCut-切点" class="headerlink" title="PointCut 切点"></a>PointCut 切点</h2><p>Pointcut决定Advice通知应该作用于哪个连接点。</p>
 
           
         
@@ -201,7 +145,71 @@ body{ -webkit-animation: bugfix infinite 1s; }
       <footer>
         
           <div class="alignright">
-            <a href="/2018/04/17/linux/linux监控命令/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+            <a href="/2018/04/17/spring/aop/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/mysql/mysql/">mysql 索引</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><ol>
+<li>一个文件可以有多个索引，分别基于不同的搜索码。如果包含记录的文件按照某个搜索码指定的顺序排序，那么该搜索码对应的索引成为聚集索引(clustering index)，聚集索引的搜索码常常是主码，不是必须如此。</li>
+<li>索引项(index entry)或索引记录(index record)由一个搜索码和指向具有该搜索码值的一条或者多条记录的指针组成。指向记录的指针包括磁盘块的标识和标识磁盘块内记录的块内偏移量。</li>
+</ol>
+<ul>
+<li>稠密索引（dense index):在稠密索引中，文件中的每个搜索码值都有一个索引项。在稠密聚集索引中，索引项包括索引码值以及指向具有该搜索码值的第一条数据记录的指针。具有相同搜索码值的其余记录顺序地存储在第一条数据记录之后，由于该索引是聚集索引，因此记录根据相同的索引码值排序。在稠密非聚集索引中，索引必须存储指向所有具有相同索引码值的记录的指针列表。</li>
+</ul>
+<h1 id="set-autocommit-0"><a href="#set-autocommit-0" class="headerlink" title="set autocommit=0"></a>set autocommit=0</h1><p>set autocommit=0;<br>update tba set name=1 where id=1;<br>update tbb set name=2 where id=1;<br>commit;<br>set autocommit=1;</p>
+<p>commit以上的sql相当于一个事务，在不commit时，其他会话时看不到结果，如果此时其他会话更新相同的数据，会堵塞等待。</p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/mysql/mysql/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
           </div>
         
         <div class="clearfix"></div>
@@ -370,7 +378,7 @@ body{ -webkit-animation: bugfix infinite 1s; }
           <!-- <div class="icon"></div> -->
             
     
-      <h1 class="metro-title transition"><a href="/2018/04/17/spring/aop/">aop</a></h1>
+      <h1 class="metro-title transition"><a href="/2018/04/17/network/ssh/">ssh</a></h1>
     
   
           <ul>
@@ -397,8 +405,10 @@ body{ -webkit-animation: bugfix infinite 1s; }
       <div class="entry">
         
           
-            <h2 id="advice"><a href="#advice" class="headerlink" title="advice"></a>advice</h2><p>定义在连接点做什么，为切面增强提供织入接口。</p>
-<h2 id="PointCut-切点"><a href="#PointCut-切点" class="headerlink" title="PointCut 切点"></a>PointCut 切点</h2><p>Pointcut决定Advice通知应该作用于哪个连接点。</p>
+            <ul>
+<li>ssh 端口转发</li>
+</ul>
+<p>ssh -f root@&lt;192.168.1.2&gt; -L 2001:&lt;192.168.1.1&gt;:3306 -N</p>
 
           
         
@@ -406,7 +416,215 @@ body{ -webkit-animation: bugfix infinite 1s; }
       <footer>
         
           <div class="alignright">
-            <a href="/2018/04/17/spring/aop/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+            <a href="/2018/04/17/network/ssh/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/redis/redis一致性hash/">redis 一致性hash</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>#Redis 一致性hash</p>
+<p>##1. 一致性hash的相关理论知识.</p>
+<pre><code>* [The link](http://www.cnblogs.com/haippy/archive/2011/12/10/2282943.html)
+* [The link](http://blog.csdn.net/cywosp/article/details/23397179/)
+</code></pre><p>##2.  还是写一下对一致性hash算法好坏的四个定义</p>
+<pre><code>* 平衡性(Balance).平衡性是指哈希的结果能尽可能的分布到所有的缓冲中去，这样可以使得所有的缓冲空间都得到利用。
+* 单调性(Monotonicity).单调性是指如果已经有一些内容通过哈希分派到相应的缓冲中，又有新的缓冲加入到系统中，哈希的结果应能够保证原有已分配的内容可以被映射到原有的或者新的缓冲中去，而不会被映射到旧的缓冲集合中的其他缓冲区。
+* 分散性(Spread).在分布式环境中，终端有可能看不到所有的缓冲，而是只能看到其中的一部分。当终端希望通过哈希过程将内容映射到缓冲中时，由于不同终端所见的缓冲范围有可能不同，从而导致哈希的结果不一致，最终的结果是相同的内容被不同的终端映射到不同的缓冲区中。这种情况显然是应该避免的，因为它导致相同内容被存储到不同缓冲中去，降低了系统存储的效率。分散性的定义就是上述情况发生的严重程度。好的算法应该尽量避免不一致的情况发生，也就是尽量降低分散性。
+* 分散性(Load).负载问题实际上是从另一个角度看待分散性问题。既然不同的终端可能将相同的内容映射到不同的缓冲区中，那么对于一个特定的缓冲区而言，也可能被不同的用户映射为不同的内容。与分散性一样，这种情况也是应当避免的，因此好的哈希算法应能够尽量降低缓冲的负荷。
+* 平滑性(Smoothness).平滑性是指缓存服务器的数目平滑改变和缓存对象的平滑改变是一致的。
+</code></pre><p>##3. 一致性hash的java实现<br>    `<br>    public class ConsistentHash {<br>        private SortedMap&lt;Long,String&gt; ketamaNodes=new TreeMap&lt;Long,String&gt;();<br>        private int numberOfReplicas=1024;<br>        private HashFunction hashFunction= Hashing.md5(); //guava<br>        private List<string> nodes;<br>        private volatile boolean init=false; //标志是否初始化完成</string></p>
+<pre><code>    public ConsistentHash(int numberOfReplicas,List&lt;String&gt; nodes){
+        this.numberOfReplicas=numberOfReplicas;
+        this.nodes=nodes;
+
+        init();
+    }
+
+    public String getNodeByKey(String key){
+        if(!init)throw new RuntimeException(&quot;init uncomplete...&quot;);
+
+        byte[] digest=hashFunction.hashString(key, Charset.forName(&quot;UTF-8&quot;)).asBytes();
+        long hash=hash(digest,0);
+        //如果找到这个节点，直接取节点，返回
+        if(!ketamaNodes.containsKey(hash)){
+            //得到大于当前key的那个子Map，然后从中取出第一个key，就是大于且离它最近的那个key
+            SortedMap&lt;Long,String&gt; tailMap=ketamaNodes.tailMap(hash);
+            if(tailMap.isEmpty()){
+                hash=ketamaNodes.firstKey();
+            }else{
+                hash=tailMap.firstKey();
+            }
+
+        }
+        return ketamaNodes.get(hash);
+    }
+
+    public synchronized void addNode(String node){
+        init=false;
+        nodes.add(node);
+        init();
+    }
+
+    private void init(){
+        //对所有节点，生成numberOfReplicas个虚拟节点
+        for(String node:nodes){
+            //每四个虚拟节点为1组
+            for(int i=0;i&lt;numberOfReplicas/4;i++){
+                //为这组虚拟结点得到惟一名称
+                byte[] digest=hashFunction.hashString(node+i, Charset.forName(&quot;UTF-8&quot;)).asBytes();
+                //Md5是一个16字节长度的数组，将16字节的数组每四个字节一组，分别对应一个虚拟结点，这就是为什么上面把虚拟结点四个划分一组的原因
+                for(int h=0;h&lt;4;h++){
+                    Long k = hash(digest,h);
+                    ketamaNodes.put(k,node);
+                }
+            }
+        }
+        init=true;
+    }
+
+    public void printNodes(){
+        for(Long key:ketamaNodes.keySet()){
+            System.out.println(ketamaNodes.get(key));
+        }
+    }
+
+    public static long hash(byte[] digest, int nTime)
+    {
+        long rv = ((long)(digest[3 + nTime * 4] &amp; 0xFF) &lt;&lt; 24)
+                | ((long)(digest[2 + nTime * 4] &amp; 0xFF) &lt;&lt; 16)
+                | ((long)(digest[1 + nTime * 4] &amp; 0xFF) &lt;&lt; 8)
+                | ((long)digest[0 + nTime * 4] &amp; 0xFF);
+        return rv;
+    }
+}
+`
+</code></pre><p>##4. 下面看一下jedis中的一致性hash实现。</p>
+<p>###1.首先看一个实例,有三个redis，使用ShardedJedisPool连接redis集群。<br>    `<br>    public class ShardedRedis {<br>        public static void main(String[] args){<br>            GenericObjectPoolConfig config=new GenericObjectPoolConfig();<br>            config.setMaxTotal(1000);<br>            config.setMaxIdle(500);</p>
+<pre><code>        List&lt;JedisShardInfo&gt; jedisShardInfoList=new ArrayList&lt;JedisShardInfo&gt;();
+        JedisShardInfo shardInfo1=new JedisShardInfo(&quot;192.168.217.157&quot;,6380);
+        JedisShardInfo shardInfo2=new JedisShardInfo(&quot;192.168.217.157&quot;,6381);
+        JedisShardInfo shardInfo3=new JedisShardInfo(&quot;192.168.217.157&quot;,6382);
+        jedisShardInfoList.add(shardInfo1);
+        jedisShardInfoList.add(shardInfo2);
+        jedisShardInfoList.add(shardInfo3);
+
+        ShardedJedisPool pool=new ShardedJedisPool(config,jedisShardInfoList);
+
+        set(&quot;user1&quot;,&quot;a&quot;,pool);
+        set(&quot;user12&quot;,&quot;a&quot;,pool);
+        set(&quot;user13&quot;,&quot;a&quot;,pool);
+        set(&quot;usera&quot;,&quot;a&quot;,pool);
+        set(&quot;userb&quot;,&quot;a&quot;,pool);
+    }
+
+    public static void set(String key,String value,ShardedJedisPool pool){
+        ShardedJedis shardedJedis=pool.getResource();
+        shardedJedis.set(key,value);
+        pool.returnResource(shardedJedis);
+    }
+}
+
+`
+</code></pre><p>###2.jedis实现</p>
+<pre><code>* Jedis是通过ShardedJedis向redis集群写入的数据,ShardedJedis中的关键方法：&lt;br/&gt;
+`
+public Sharded(List&lt;S&gt; shards, Hashing algo, Pattern tagPattern) {
+    this.algo = algo;
+    this.tagPattern = tagPattern;
+    initialize(shards);
+}
+
+//初始化哈希环
+private void initialize(List&lt;S&gt; shards) {
+    nodes = new TreeMap&lt;Long, S&gt;();
+
+    for (int i = 0; i != shards.size(); ++i) {
+        final S shardInfo = shards.get(i);
+        if (shardInfo.getName() == null)
+        for (int n = 0; n &lt; 160 * shardInfo.getWeight(); n++) {
+            nodes.put(this.algo.hash(&quot;SHARD-&quot; + i + &quot;-NODE-&quot; + n),
+                shardInfo);
+        }
+        else
+        for (int n = 0; n &lt; 160 * shardInfo.getWeight(); n++) {
+            nodes.put(
+                this.algo.hash(shardInfo.getName() + &quot;*&quot;
+                    + shardInfo.getWeight() + n), shardInfo);
+        }
+        resources.put(shardInfo, shardInfo.createResource());
+    }
+}
+
+//将key，value存储到相应的shard
+ public String set(String key, String value) {
+    Jedis j = getShard(key);
+    return j.set(key, value);
+ }
+
+public R getShard(String key) {
+    return resources.get(getShardInfo(key));
+}
+
+//根据key获取shard
+public S getShardInfo(byte[] key) {
+    SortedMap&lt;Long, S&gt; tail = nodes.tailMap(algo.hash(key));
+    if (tail.isEmpty()) {
+        return nodes.get(nodes.firstKey());
+    }
+    return tail.get(tail.firstKey());
+}
+`
+* 以上就是jedis中一致性hash的主要代码，当redis单机存储无法满足要求时，可以考虑使用一致性hash构建redis集群。
+</code></pre>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/redis/redis一致性hash/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
           </div>
         
         <div class="clearfix"></div>
@@ -519,65 +737,6 @@ body{ -webkit-animation: bugfix infinite 1s; }
         
           <div class="alignright">
             <a href="/2018/04/17/ruby/ruby/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
-          </div>
-        
-        <div class="clearfix"></div>
-      </footer>
-    </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  
-    <div class="post-content-index">
-  
-      
-        <header>
-          <!-- <div class="icon"></div> -->
-            
-    
-      <h1 class="metro-title transition"><a href="/2018/04/17/network/ssh/">ssh</a></h1>
-    
-  
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">hello world</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-          </ul>
-        </header>
-      
-      <div class="entry">
-        
-          
-            <ul>
-<li>ssh 端口转发</li>
-</ul>
-<p>ssh -f root@&lt;192.168.1.2&gt; -L 2001:&lt;192.168.1.1&gt;:3306 -N</p>
-
-          
-        
-      </div>
-      <footer>
-        
-          <div class="alignright">
-            <a href="/2018/04/17/network/ssh/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
           </div>
         
         <div class="clearfix"></div>
@@ -820,7 +979,7 @@ body{ -webkit-animation: bugfix infinite 1s; }
           <!-- <div class="icon"></div> -->
             
     
-      <h1 class="metro-title transition"><a href="/2018/04/17/redis/redis一致性hash/">redis 一致性hash</a></h1>
+      <h1 class="metro-title transition"><a href="/2018/04/17/linux/linux监控命令/">linux 监控命令</a></h1>
     
   
           <ul>
@@ -847,240 +1006,62 @@ body{ -webkit-animation: bugfix infinite 1s; }
       <div class="entry">
         
           
-            <p>#Redis 一致性hash</p>
-<p>##1. 一致性hash的相关理论知识.</p>
-<pre><code>* [The link](http://www.cnblogs.com/haippy/archive/2011/12/10/2282943.html)
-* [The link](http://blog.csdn.net/cywosp/article/details/23397179/)
-</code></pre><p>##2.  还是写一下对一致性hash算法好坏的四个定义</p>
-<pre><code>* 平衡性(Balance).平衡性是指哈希的结果能尽可能的分布到所有的缓冲中去，这样可以使得所有的缓冲空间都得到利用。
-* 单调性(Monotonicity).单调性是指如果已经有一些内容通过哈希分派到相应的缓冲中，又有新的缓冲加入到系统中，哈希的结果应能够保证原有已分配的内容可以被映射到原有的或者新的缓冲中去，而不会被映射到旧的缓冲集合中的其他缓冲区。
-* 分散性(Spread).在分布式环境中，终端有可能看不到所有的缓冲，而是只能看到其中的一部分。当终端希望通过哈希过程将内容映射到缓冲中时，由于不同终端所见的缓冲范围有可能不同，从而导致哈希的结果不一致，最终的结果是相同的内容被不同的终端映射到不同的缓冲区中。这种情况显然是应该避免的，因为它导致相同内容被存储到不同缓冲中去，降低了系统存储的效率。分散性的定义就是上述情况发生的严重程度。好的算法应该尽量避免不一致的情况发生，也就是尽量降低分散性。
-* 分散性(Load).负载问题实际上是从另一个角度看待分散性问题。既然不同的终端可能将相同的内容映射到不同的缓冲区中，那么对于一个特定的缓冲区而言，也可能被不同的用户映射为不同的内容。与分散性一样，这种情况也是应当避免的，因此好的哈希算法应能够尽量降低缓冲的负荷。
-* 平滑性(Smoothness).平滑性是指缓存服务器的数目平滑改变和缓存对象的平滑改变是一致的。
-</code></pre><p>##3. 一致性hash的java实现<br>    `<br>    public class ConsistentHash {<br>        private SortedMap&lt;Long,String&gt; ketamaNodes=new TreeMap&lt;Long,String&gt;();<br>        private int numberOfReplicas=1024;<br>        private HashFunction hashFunction= Hashing.md5(); //guava<br>        private List<string> nodes;<br>        private volatile boolean init=false; //标志是否初始化完成</string></p>
-<pre><code>    public ConsistentHash(int numberOfReplicas,List&lt;String&gt; nodes){
-        this.numberOfReplicas=numberOfReplicas;
-        this.nodes=nodes;
-
-        init();
-    }
-
-    public String getNodeByKey(String key){
-        if(!init)throw new RuntimeException(&quot;init uncomplete...&quot;);
-
-        byte[] digest=hashFunction.hashString(key, Charset.forName(&quot;UTF-8&quot;)).asBytes();
-        long hash=hash(digest,0);
-        //如果找到这个节点，直接取节点，返回
-        if(!ketamaNodes.containsKey(hash)){
-            //得到大于当前key的那个子Map，然后从中取出第一个key，就是大于且离它最近的那个key
-            SortedMap&lt;Long,String&gt; tailMap=ketamaNodes.tailMap(hash);
-            if(tailMap.isEmpty()){
-                hash=ketamaNodes.firstKey();
-            }else{
-                hash=tailMap.firstKey();
-            }
-
-        }
-        return ketamaNodes.get(hash);
-    }
-
-    public synchronized void addNode(String node){
-        init=false;
-        nodes.add(node);
-        init();
-    }
-
-    private void init(){
-        //对所有节点，生成numberOfReplicas个虚拟节点
-        for(String node:nodes){
-            //每四个虚拟节点为1组
-            for(int i=0;i&lt;numberOfReplicas/4;i++){
-                //为这组虚拟结点得到惟一名称
-                byte[] digest=hashFunction.hashString(node+i, Charset.forName(&quot;UTF-8&quot;)).asBytes();
-                //Md5是一个16字节长度的数组，将16字节的数组每四个字节一组，分别对应一个虚拟结点，这就是为什么上面把虚拟结点四个划分一组的原因
-                for(int h=0;h&lt;4;h++){
-                    Long k = hash(digest,h);
-                    ketamaNodes.put(k,node);
-                }
-            }
-        }
-        init=true;
-    }
-
-    public void printNodes(){
-        for(Long key:ketamaNodes.keySet()){
-            System.out.println(ketamaNodes.get(key));
-        }
-    }
-
-    public static long hash(byte[] digest, int nTime)
-    {
-        long rv = ((long)(digest[3 + nTime * 4] &amp; 0xFF) &lt;&lt; 24)
-                | ((long)(digest[2 + nTime * 4] &amp; 0xFF) &lt;&lt; 16)
-                | ((long)(digest[1 + nTime * 4] &amp; 0xFF) &lt;&lt; 8)
-                | ((long)digest[0 + nTime * 4] &amp; 0xFF);
-        return rv;
-    }
-}
-`
-</code></pre><p>##4. 下面看一下jedis中的一致性hash实现。</p>
-<p>###1.首先看一个实例,有三个redis，使用ShardedJedisPool连接redis集群。<br>    `<br>    public class ShardedRedis {<br>        public static void main(String[] args){<br>            GenericObjectPoolConfig config=new GenericObjectPoolConfig();<br>            config.setMaxTotal(1000);<br>            config.setMaxIdle(500);</p>
-<pre><code>        List&lt;JedisShardInfo&gt; jedisShardInfoList=new ArrayList&lt;JedisShardInfo&gt;();
-        JedisShardInfo shardInfo1=new JedisShardInfo(&quot;192.168.217.157&quot;,6380);
-        JedisShardInfo shardInfo2=new JedisShardInfo(&quot;192.168.217.157&quot;,6381);
-        JedisShardInfo shardInfo3=new JedisShardInfo(&quot;192.168.217.157&quot;,6382);
-        jedisShardInfoList.add(shardInfo1);
-        jedisShardInfoList.add(shardInfo2);
-        jedisShardInfoList.add(shardInfo3);
-
-        ShardedJedisPool pool=new ShardedJedisPool(config,jedisShardInfoList);
-
-        set(&quot;user1&quot;,&quot;a&quot;,pool);
-        set(&quot;user12&quot;,&quot;a&quot;,pool);
-        set(&quot;user13&quot;,&quot;a&quot;,pool);
-        set(&quot;usera&quot;,&quot;a&quot;,pool);
-        set(&quot;userb&quot;,&quot;a&quot;,pool);
-    }
-
-    public static void set(String key,String value,ShardedJedisPool pool){
-        ShardedJedis shardedJedis=pool.getResource();
-        shardedJedis.set(key,value);
-        pool.returnResource(shardedJedis);
-    }
-}
-
-`
-</code></pre><p>###2.jedis实现</p>
-<pre><code>* Jedis是通过ShardedJedis向redis集群写入的数据,ShardedJedis中的关键方法：&lt;br/&gt;
-`
-public Sharded(List&lt;S&gt; shards, Hashing algo, Pattern tagPattern) {
-    this.algo = algo;
-    this.tagPattern = tagPattern;
-    initialize(shards);
-}
-
-//初始化哈希环
-private void initialize(List&lt;S&gt; shards) {
-    nodes = new TreeMap&lt;Long, S&gt;();
-
-    for (int i = 0; i != shards.size(); ++i) {
-        final S shardInfo = shards.get(i);
-        if (shardInfo.getName() == null)
-        for (int n = 0; n &lt; 160 * shardInfo.getWeight(); n++) {
-            nodes.put(this.algo.hash(&quot;SHARD-&quot; + i + &quot;-NODE-&quot; + n),
-                shardInfo);
-        }
-        else
-        for (int n = 0; n &lt; 160 * shardInfo.getWeight(); n++) {
-            nodes.put(
-                this.algo.hash(shardInfo.getName() + &quot;*&quot;
-                    + shardInfo.getWeight() + n), shardInfo);
-        }
-        resources.put(shardInfo, shardInfo.createResource());
-    }
-}
-
-//将key，value存储到相应的shard
- public String set(String key, String value) {
-    Jedis j = getShard(key);
-    return j.set(key, value);
- }
-
-public R getShard(String key) {
-    return resources.get(getShardInfo(key));
-}
-
-//根据key获取shard
-public S getShardInfo(byte[] key) {
-    SortedMap&lt;Long, S&gt; tail = nodes.tailMap(algo.hash(key));
-    if (tail.isEmpty()) {
-        return nodes.get(nodes.firstKey());
-    }
-    return tail.get(tail.firstKey());
-}
-`
-* 以上就是jedis中一致性hash的主要代码，当redis单机存储无法满足要求时，可以考虑使用一致性hash构建redis集群。
-</code></pre>
-          
-        
-      </div>
-      <footer>
-        
-          <div class="alignright">
-            <a href="/2018/04/17/redis/redis一致性hash/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
-          </div>
-        
-        <div class="clearfix"></div>
-      </footer>
-    </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  
-    <div class="post-content-index">
-  
-      
-        <header>
-          <!-- <div class="icon"></div> -->
-            
-    
-      <h1 class="metro-title transition"><a href="/2018/04/17/总结/总结/">总结</a></h1>
-    
-  
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">hello world</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-          </ul>
-        </header>
-      
-      <div class="entry">
-        
-          
-            <ul>
-<li>状态机反思<ol>
-<li>任意状态可重入</li>
-<li>状态机包含业务状态和处理状态，处理状态用于防止并发问题</li>
-</ol>
+            <h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
+<li><p>每5秒查看磁盘io情况</p>
+<p>iostat -xm 5</p>
 </li>
-<li>慢sql优化<ol>
-<li>explain确认索引，函数，join是否合理等</li>
-<li>接口设计是否合理，可否一个复杂接口改成多个来实现</li>
-<li>业务设计是否合理，是否有必要展示所有数据</li>
-<li>存储是否合理，是否可以使用数据仓库，大数据等方法解决</li>
-</ol>
+<li><p>查看系统内存，io速度，系统中断，上下文切换等信息</p>
+<p>vmstat 1</p>
+</li>
+<li><p>网络配置文件</p>
+<p>/etc/sysconfig/network-scripts/</p>
+</li>
+<li><p>sar</p>
+<p>-A：所有报告的总和<br>-u：输出CPU使用情况的统计信息<br>-v：输出inode、文件和其他内核表的统计信息<br>-d：输出每一个块设备的活动信息<br>-r：输出内存和交换空间的统计信息<br>-b：显示I/O和传送速率的统计信息<br>-a：文件读写情况<br>-c：输出进程统计信息，每秒创建的进程数<br>-R：输出内存页面的统计信息<br>-y：终端设备活动情况<br>-w：输出系统交换活动信息</p>
 </li>
 </ul>
-<ul>
-<li><p>php连接数据库失败，无任何异常，多个库</p>
-<p>方法：抓包，看请求失败情况</p>
+<p>​     sar -P ALL 打印所有cpu监控信息</p>
+<h3 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h3><ul>
+<li><p>定位服务器丢包问题</p>
+<ol>
+<li><p>netstat -i 查看RX-DRP,TX-DRP</p>
 </li>
-<li><p>客户端连接zookeeper，经常断掉</p>
-<p>方法：加大sessionTimeout</p>
+<li><p>dropwatch 可以查看哪个内核方法丢的数据包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dropwatch -l kas</span><br><span class="line">start</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>页面，刷出信息后，直接跳转到登录页面</p>
-<p>方法：抓包，抓出页面信息，发现页面中有一段跳转代码</p>
+<li><p>perf 监视kfree_skb 事件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo perf record -g -a -e skb:kfree_skb</span><br><span class="line">sudo perf script</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>tomcat自动挂掉</p>
-<p>方法：查看系统日志，发现被系统kill，加大系统内存​</p>
+<li><p>tcpdump 两端抓包</p>
+</li>
+</ol>
+<p>​</p>
+</li>
+<li><p>tcpdump 抓包</p>
+<ol>
+<li>tcpdump -pni eth0 host 172.16.0.3 and port 3306-s65535 -G 3600 -w ‘trace_%Y-%m-%d_%H:%M:%S.pcap’</li>
+</ol>
+</li>
+<li><p>dns 配置文件</p>
+<p>/etc/resolv.conf</p>
+</li>
+<li><p>查询dns</p>
+<p>nslookup,dig</p>
+</li>
+<li><p>MSS 默认536字节，以太网MSS可达1460</p>
+</li>
+<li><p>IP数据报头部40字节：20字节TCP首部，20字节IP首部</p>
+</li>
+<li><p>wireshark</p>
+<ol>
+<li>ip.src==192.168.0.2 and ip.dst==192.168.0.233 and tcp.port==965  </li>
+<li>tcp contains “http”</li>
+<li>http.request.uri contains “online”</li>
+</ol>
+</li>
+<li><p>lsof -i</p>
+</li>
+<li><p>netstat -anlp</p>
 </li>
 </ul>
 
@@ -1090,7 +1071,7 @@ public S getShardInfo(byte[] key) {
       <footer>
         
           <div class="alignright">
-            <a href="/2018/04/17/总结/总结/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+            <a href="/2018/04/17/linux/linux监控命令/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
           </div>
         
         <div class="clearfix"></div>
@@ -1142,7 +1123,7 @@ public S getShardInfo(byte[] key) {
       </li>
     
       <li>
-        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+        <a href="/2018/04/17/zookeeper/zookeeper/">zookeeper注意点</a>
       </li>
     
   </ul>

@@ -372,17 +372,20 @@ body{ -webkit-animation: bugfix infinite 1s; }
             <h3 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h3><p>半个月前发现，邮件报警，线上的tomcat一直在报监控接口超时，这个监控接口就是返回个hello world,没有依赖其他系统。这个报警，大约几个小时来一次。</p>
 <h3 id="线上监控"><a href="#线上监控" class="headerlink" title="线上监控"></a>线上监控</h3><ol>
 <li><p>监控接口请求耗时监控</p>
-<p><img src="../../images/java-tomcat-gc/image003.png" alt="image003"></p>
+<p><img src="/images/image003.png" alt="image003"></p>
 </li>
 </ol>
 <ol start="2">
 <li><p>网络监控</p>
-<p><img src="../../images/java-tomcat-gc/image001.png" alt="image001"></p>
-<p>cpu监控</p>
-<p><img src="../../images/java-tomcat-gc/image002.png" alt="image002"></p>
+<p><img src="/images/java-tomcat-gc/image001.png" alt="image001"></p>
+</li>
+</ol>
+<ol start="3">
+<li><p>cpu监控</p>
+<p><img src="/images/java-tomcat-gc/image002.png" alt="image002"></p>
 </li>
 <li><p>jstat</p>
-<p><img src="../../images/java-tomcat-gc/gcutil.png" alt="gcutil"></p>
+<p><img src="/images/java-tomcat-gc/gcutil.png" alt="gcutil"></p>
 </li>
 </ol>
 <h3 id="推断"><a href="#推断" class="headerlink" title="推断"></a>推断</h3><p>从上面三个可以看出，机器没死，活着呢，网络停止了，估计jvm在gc（最后证实确实如此）。</p>
@@ -418,11 +421,25 @@ body{ -webkit-animation: bugfix infinite 1s; }
 <p>CMSFullGCsBeforeCompaction  ：在上一次CMS并发GC执行过后，到底还要再执行多少次full GC才会做压缩。默认是0，也就是在默认配置下每次CMS GC顶不住了而要转入full GC的时候都会做压缩。 把CMSFullGCsBeforeCompaction配置为10，就会让上面说的第一个条件变成每隔10次真正的full GC才做一次压缩（<strong>而不是每10次CMS并发GC就做一次压缩，目前VM里没有这样的参数</strong>）。这会使full GC更少做压缩，也就更容易使CMS的old gen受碎片化问题的困扰。 本来这个参数就是用来配置降低full GC压缩的频率，以期减少某些full GC的暂停时间。CMS回退到full GC时用的算法是<strong>mark-sweep-compact</strong>，但compaction是可选的，不做的话碎片化会严重些但这次full GC的暂停时间会短些；这是个取舍。</p>
 <p>CMSScavengeBeforeRemark : CMS前进行一次MinorGC</p>
 <p>调整后大约24h ，gc情况：</p>
-<p><img src="../../images/java-tomcat-gc/gc-after-24h.png" alt="gc-after-24h"></p>
+<p><img src="/images/java-tomcat-gc/gc-after-24h.png" alt="gc-after-24h"></p>
 <p>平均一个小时两次fgc，每次的时间不到0.5s，大体上可以接受。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li><p>cms流程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2018-04-28T15:48:13.167+0800: 1341.458: [GC (CMS Initial Mark) [1 CMS-initial-mark: 4076417K(5242880K)] 4093238K(7130368K), 0.0064435 secs] [Times: user=0.01 sys=0.00, real=0.01 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.173+0800: 1341.465: [CMS-concurrent-mark-start]</span><br><span class="line">2018-04-28T15:48:13.416+0800: 1341.708: [CMS-concurrent-mark: 0.240/0.243 secs] [Times: user=0.88 sys=0.07, real=0.24 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.416+0800: 1341.708: [CMS-concurrent-preclean-start]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.436+0800: 1341.728: [CMS-concurrent-preclean: 0.019/0.020 secs] [Times: user=0.07 sys=0.00, real=0.02 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.436+0800: 1341.728: [CMS-concurrent-abortable-preclean-start]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:15.145+0800: 1343.437: [GC (Allocation Failure) 1343.437: [ParNew: 1693259K-&gt;189383K(1887488K), 0.3191849 secs] 5769676K-&gt;4265801K(7130368K), 0.3194583 secs] [Times: user=0.40 sys=0.00, real=0.32 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:17.424+0800: 1345.716: [CMS-concurrent-abortable-preclean: 2.845/3.988 secs] [Times: user=10.56 sys=0.64, real=3.99 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:17.427+0800: 1345.719: [GC (CMS Final Remark) [YG occupancy: 1685779 K (1887488 K)]1345.719: [Rescan (parallel) , 0.3523662 secs]1346.071: [weak refs processing, 0.3003263 secs]1346.372: [class unloading, 0.1228579 secs]1346.495: [scrub symbol table, 0.0134209 secs]1346.508: [scrub string table, 0.0023638 secs][1 CMS-remark: 4076417K(5242880K)] 5762197K(7130368K), 0.7958359 secs] [Times: user=1.85 sys=0.00, real=0.80 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:18.238+0800: 1346.530: [CMS-concurrent-sweep-start]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:18.419+0800: 1346.711: [GC (Allocation Failure) 1346.711: [ParNew: 1867207K-&gt;199251K(1887488K), 0.3801573 secs] 5812075K-&gt;4163268K(7130368K), 0.3804263 secs] [Times: user=0.52 sys=0.00, real=0.38 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:20.851+0800: 1349.143: [GC (Allocation Failure) 1349.143: [ParNew: 1877075K-&gt;159618K(1887488K), 0.2674537 secs] 3508407K-&gt;1803795K(7130368K), 0.2677172 secs] [Times: user=0.35 sys=0.00, real=0.27 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:22.040+0800: 1350.331: [CMS-concurrent-sweep: 3.127/3.801 secs] [Times: user=11.04 sys=0.50, real=3.80secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:22.040+0800: 1350.331: [CMS-concurrent-reset-start]</span><br><span class="line">2018-04-28T15:48:22.051+0800: 1350.343: [CMS-concurrent-reset: 0.011/0.011 secs] [Times: user=0.04 sys=0.00, real=0.01secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:22.683+0800: 1350.975: [GC (Allocation Failure) 1350.975: [ParNew: 1837442K-&gt;204471K(1887488K),0.4063115 secs] 2327686K-&gt;697104K(7130368K), 0.4065654 secs] [Times: user=0.47 sys=0.00, real=0.40 secs]</span><br></pre></td></tr></table></figure>
+<li>cms流程</li>
+</ol>
+<p>   2018-04-28T15:48:13.167+0800: 1341.458: [GC (CMS Initial Mark) [1 CMS-initial-mark: 4076417K(5242880K)] 4093238K(7130368K), 0.0064435 secs] [Times: user=0.01 sys=0.00, real=0.01 secs]</p>
+<p>   2018-04-28T15:48:13.173+0800: 1341.465: [CMS-concurrent-mark-start]<br>   2018-04-28T15:48:13.416+0800: 1341.708: [CMS-concurrent-mark: 0.240/0.243 secs] [Times: user=0.88 sys=0.07, real=0.24 secs]</p>
+<p>   2018-04-28T15:48:13.416+0800: 1341.708: [CMS-concurrent-preclean-start]</p>
+<p>   2018-04-28T15:48:13.436+0800: 1341.728: [CMS-concurrent-preclean: 0.019/0.020 secs] [Times: user=0.07 sys=0.00, real=0.02 secs]</p>
+<p>   2018-04-28T15:48:13.436+0800: 1341.728: [CMS-concurrent-abortable-preclean-start]</p>
+<p>   2018-04-28T15:48:15.145+0800: 1343.437: [GC (Allocation Failure) 1343.437: [ParNew: 1693259K-&gt;189383K(1887488K), 0.3191849 secs] 5769676K-&gt;4265801K(7130368K), 0.3194583 secs] [Times: user=0.40 sys=0.00, real=0.32 secs]</p>
+<p>   2018-04-28T15:48:17.424+0800: 1345.716: [CMS-concurrent-abortable-preclean: 2.845/3.988 secs] [Times: user=10.56 sys=0.64, real=3.99 secs]</p>
+<p>   2018-04-28T15:48:17.427+0800: 1345.719: [GC (CMS Final Remark) [YG occupancy: 1685779 K (1887488 K)]1345.719: [Rescan (parallel) , 0.3523662 secs]1346.071: [weak refs processing, 0.3003263 secs]1346.372: [class unloading, 0.1228579 secs]1346.495: [scrub symbol table, 0.0134209 secs]1346.508: [scrub string table, 0.0023638 secs][1 CMS-remark: 4076417K(5242880K)] 5762197K(7130368K), 0.7958359 secs] [Times: user=1.85 sys=0.00, real=0.80 secs]</p>
+<p>   2018-04-28T15:48:18.238+0800: 1346.530: [CMS-concurrent-sweep-start]</p>
+<p>   2018-04-28T15:48:18.419+0800: 1346.711: [GC (Allocation Failure) 1346.711: [ParNew: 1867207K-&gt;199251K(1887488K), 0.3801573 secs] 5812075K-&gt;4163268K(7130368K), 0.3804263 secs] [Times: user=0.52 sys=0.00, real=0.38 secs]</p>
+<p>   2018-04-28T15:48:20.851+0800: 1349.143: [GC (Allocation Failure) 1349.143: [ParNew: 1877075K-&gt;159618K(1887488K), 0.2674537 secs] 3508407K-&gt;1803795K(7130368K), 0.2677172 secs] [Times: user=0.35 sys=0.00, real=0.27 secs]</p>
+<p>   2018-04-28T15:48:22.040+0800: 1350.331: [CMS-concurrent-sweep: 3.127/3.801 secs] [Times: user=11.04 sys=0.50, real=3.80secs]</p>
+<p>   2018-04-28T15:48:22.040+0800: 1350.331: [CMS-concurrent-reset-start]<br>   2018-04-28T15:48:22.051+0800: 1350.343: [CMS-concurrent-reset: 0.011/0.011 secs] [Times: user=0.04 sys=0.00, real=0.01secs]</p>
+<p>   2018-04-28T15:48:22.683+0800: 1350.975: [GC (Allocation Failure) 1350.975: [ParNew: 1837442K-&gt;204471K(1887488K),0.4063115 secs] 2327686K-&gt;697104K(7130368K), 0.4065654 secs] [Times: user=0.47 sys=0.00, real=0.40 secs]</p>
 <ul>
 <li><p>CMS Initial Mark </p>
 <p>初始标记。STW。old size：4076417K，old capacity:5242880K，heap size(不包括perm):4093238K,heap size:7130368K</p>
@@ -438,11 +455,15 @@ body{ -webkit-animation: bugfix infinite 1s; }
 <p>heap capacity:7130368K</p>
 </li>
 <li><p>分析一下CMS-concurrent-sweep-start 以后的几次ParNew：</p>
-<p>| 次数 | young size before MinorGC | young size after MinorGC | heap size before MinorGC | heap size after MinorGC |<br>| —- | ————————- | ———————— | ———————— | ———————– |<br>| 1    | 1867207K                  | 199251K                  | 5812075K                 | 4163268K                |<br>| 2    | 1877075K                  | 159618K                  | 3508407K                 | 1803795K                |<br>| 3    | 1837442K                  | 204471K                  | 2327686K                 | 697104K                 |</p>
-<p>从表格中计算，cms前后，old size：从4163268K-199251K  大约将为697104K-204471K。</p>
 </li>
 </ul>
-</li>
+<pre><code>| 次数 | young size before MinorGC | young size after MinorGC | heap size before MinorGC | heap size after MinorGC |
+| ---- | ------------------------- | ------------------------ | ------------------------ | ----------------------- |
+| 1    | 1867207K                  | 199251K                  | 5812075K                 | 4163268K                |
+| 2    | 1877075K                  | 159618K                  | 3508407K                 | 1803795K                |
+| 3    | 1837442K                  | 204471K                  | 2327686K                 | 697104K                 |
+</code></pre><p>​     从表格中计算，cms前后，old size：从4163268K-199251K  大约将为697104K-204471K。</p>
+<ol start="2">
 <li><p>cms参数调整怎么算优秀？</p>
 <p>标准：以对象从新生代提升到老年代的速度对老年代中的对象进行收集。</p>
 <p>达不到这个标准则称之为失速(Lost the Race)。失速会导致Stop-The-World 压缩式垃圾收集(单线程的Serial Old FullGC)。避免失速的关键是要结合足够大的老年代和足够快地初始化CMS垃圾收集周期，让它以比提升速率更快的速度回收空间。</p>
@@ -464,6 +485,7 @@ body{ -webkit-animation: bugfix infinite 1s; }
 <p>MinorGC时，Sruvivor space放不下，只能放到老年代，而此时老年代也放不下，此时会导致STW 使用Serial Old收集器进行Full GC.</p>
 </li>
 </ol>
+<p>参考资料：</p>
 <p><a href="http://itindex.net/detail/47030-cms-gc-%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">http://itindex.net/detail/47030-cms-gc-%E9%97%AE%E9%A2%98</a></p>
 <p><a href="http://www.oracle.com/technetwork/java/javase/tech/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/tech/index.html</a></p>
 <p><a href="http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html</a></p>
@@ -476,89 +498,6 @@ body{ -webkit-animation: bugfix infinite 1s; }
         
           <div class="alignright">
             <a href="/2018/04/26/java/tomcat异常分析/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
-          </div>
-        
-        <div class="clearfix"></div>
-      </footer>
-    </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  
-    <div class="post-content-index">
-  
-      
-        <header>
-          <!-- <div class="icon"></div> -->
-            
-    
-      <h1 class="metro-title transition"><a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a></h1>
-    
-  
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">hello world</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-          </ul>
-        </header>
-      
-      <div class="entry">
-        
-          
-            <h3 id="topic添加partition"><a href="#topic添加partition" class="headerlink" title="topic添加partition"></a>topic添加partition</h3><ul>
-<li>需操作的topic，定义一个json文件</li>
-</ul>
-<p>➜  bin vi topic.json</p>
-<pre><code>{
-    &quot;topics&quot;:[{&quot;topics&quot;:&quot;test&quot;}],
-    &quot;version&quot;:1
-}
-</code></pre><ul>
-<li>生成reassign计划</li>
-</ul>
-<p>➜  bin ./kafka-reassign-partitions.sh –zookeeper localhost:2181 –topics-to-move-json-file ./topic.json –broker-list ‘0,1,2’ –generate<br>Current partition replica assignment<br>{“version”:1,”partitions”:[{“topic”:”test”,”partition”:4,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:1,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:2,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:5,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:0,”replicas”:[2,1,0]},{“topic”:”test”,”partition”:3,”replicas”:[2,1,0]}]}</p>
-<p>Proposed partition reassignment configuration<br>{“version”:1,”partitions”:[{“topic”:”test”,”partition”:4,”replicas”:[2,1,0]},{“topic”:”test”,”partition”:1,”replicas”:[2,0,1]},{“topic”:”test”,”partition”:5,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:2,”replicas”:[0,1,2]},{“topic”:”test”,”partition”:0,”replicas”:[1,2,0]},{“topic”:”test”,”partition”:3,”replicas”:[1,0,2]}]}</p>
-<ul>
-<li>保存reassign计划json</li>
-</ul>
-<p>➜  bin vi reassignment.json</p>
-<ul>
-<li>执行reassign计划</li>
-</ul>
-<p>➜  bin ./kafka-reassign-partitions.sh –zookeeper localhost:2181 –reassignment-json-file ./reassignment.json –execute<br>Current partition replica assignment</p>
-<p>{“version”:1,”partitions”:[{“topic”:”test”,”partition”:4,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:1,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:2,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:5,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:0,”replicas”:[2,1,0]},{“topic”:”test”,”partition”:3,”replicas”:[2,1,0]}]}</p>
-<p>Save this to use as the –reassignment-json-file option during rollback<br>Successfully started reassignment of partitions.</p>
-<ul>
-<li>校验reassign计划</li>
-</ul>
-<p>➜  bin ./kafka-reassign-partitions.sh –zookeeper localhost:2181 –reassignment-json-file ./reassignment.json –verify<br>Status of partition reassignment:<br>Reassignment of partition [test,4] completed successfully<br>Reassignment of partition [test,0] completed successfully<br>Reassignment of partition [test,3] completed successfully<br>Reassignment of partition [test,2] completed successfully<br>Reassignment of partition [test,1] completed successfully<br>Reassignment of partition [test,5] completed successfully</p>
-<p>增加partition完成，但是老的partition中的数据不会迁移到新的partition</p>
-
-          
-        
-      </div>
-      <footer>
-        
-          <div class="alignright">
-            <a href="/2018/04/17/kafka/kafka-reassign-partitions/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
           </div>
         
         <div class="clearfix"></div>
@@ -642,182 +581,6 @@ body{ -webkit-animation: bugfix infinite 1s; }
         
           <div class="alignright">
             <a href="/2018/04/17/zookeeper/zookeeper/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
-          </div>
-        
-        <div class="clearfix"></div>
-      </footer>
-    </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  
-    <div class="post-content-index">
-  
-      
-        <header>
-          <!-- <div class="icon"></div> -->
-            
-    
-      <h1 class="metro-title transition"><a href="/2018/04/17/golang/golang-test/">golang-test</a></h1>
-    
-  
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">hello world</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-          </ul>
-        </header>
-      
-      <div class="entry">
-        
-          
-            <p>1，测试单个文件，一定要带上被测试的原文件</p>
-<pre><code>Go test -v  wechat_test.go wechat.go 
-</code></pre><p>2，测试单个方法</p>
-<pre><code>go test -v -test.run TestRefreshAccessToken
-</code></pre>
-          
-        
-      </div>
-      <footer>
-        
-          <div class="alignright">
-            <a href="/2018/04/17/golang/golang-test/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
-          </div>
-        
-        <div class="clearfix"></div>
-      </footer>
-    </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  
-    <div class="post-content-index">
-  
-      
-        <header>
-          <!-- <div class="icon"></div> -->
-            
-    
-      <h1 class="metro-title transition"><a href="/2018/04/17/java/Java8实战/">java8</a></h1>
-    
-  
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">hello world</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-          </ul>
-        </header>
-      
-      <div class="entry">
-        
-          
-            <h2 id="行为参数化"><a href="#行为参数化" class="headerlink" title="行为参数化"></a>行为参数化</h2><p>让方法接受多种行为作为参数，并在内部使用，来完成不同的行为。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;Apple&gt; filterApples(List&lt;Apple&gt; inventory,ApplePredicate p)&#123;</span><br><span class="line">    List&lt;Apple&gt; result=new ArrayList&lt;&gt;();</span><br><span class="line">    for(Apple apple:inventory)&#123;</span><br><span class="line">        if(p.test(apple))&#123;</span><br><span class="line">            result.add(apple);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      </div>
-      <footer>
-        
-          <div class="alignright">
-            <a href="/2018/04/17/java/Java8实战/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
-          </div>
-        
-        <div class="clearfix"></div>
-      </footer>
-    </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  
-    <div class="post-content-index">
-  
-      
-        <header>
-          <!-- <div class="icon"></div> -->
-            
-    
-      <h1 class="metro-title transition"><a href="/2018/04/17/spring/springmvc/">返回值处理</a></h1>
-    
-  
-          <ul>
-            <li>
-              <span class="heading-span">Posted on: </span>
-              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
-            </li>
-            
-              <li>
-                <span class="heading-span">By: </span>
-
-                
-                  <a href="/">hello world</a>
-                
-
-              </li>
-            
-            <li>
-              <span class="heading-span">With: </span>
-              
-          </ul>
-        </header>
-      
-      <div class="entry">
-        
-          
-            <h2 id="返回值处理"><a href="#返回值处理" class="headerlink" title="返回值处理"></a>返回值处理</h2><ul>
-<li>ResponseBodyAdvice</li>
-<li>HandlerMethodReturnValueHandler</li>
-<li>ExceptionHandler</li>
-</ul>
-
-          
-        
-      </div>
-      <footer>
-        
-          <div class="alignright">
-            <a href="/2018/04/17/spring/springmvc/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
           </div>
         
         <div class="clearfix"></div>
@@ -928,6 +691,320 @@ body{ -webkit-animation: bugfix infinite 1s; }
 
 
 
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/hystrix/hystrix-configuration/">hystrix configuration</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h1 id="Command-Properties"><a href="#Command-Properties" class="headerlink" title="Command Properties"></a>Command Properties</h1><h2 id="Execution"><a href="#Execution" class="headerlink" title="Execution"></a>Execution</h2><ul>
+<li><p>execution.isolation.strategy  </p>
+<p>default:THREAD</p>
+<p>HystrixCommand.run 执行的隔离策略。</p>
+<p>THREAD：在线程池的线程中执行。</p>
+<p>SEMAPHORE：在调用线程中执行，最大并发数受信号量数量控制。</p>
+<p>HystrixCommand推荐THREAD，HystrixObservableCommand推荐SEMAPHORE</p>
+</li>
+<li><p>execution.isolation.thread.timeoutInMilliseconds</p>
+<p>default:1000</p>
+<p>调用超时时间。Hystrix会将该Command置为TIMEOUT，调用fallback逻辑。</p>
+</li>
+<li><p>execution.timeout.enabled</p>
+<p>default:true</p>
+<p>Command.run是否有超时</p>
+</li>
+<li><p>execution.isolation.thread.interruptOnTimeout</p>
+<p>default:true</p>
+<p>超时时，是否中断Command</p>
+</li>
+<li><p>execution.isolation.thread.interruptOnCancel</p>
+<p>default:false</p>
+<p>当Cancel时，是否中断Command</p>
+</li>
+<li><p>execution.isolation.semaphore.maxConcurrentRequests</p>
+<p>default:10</p>
+<p>当使用ExecutionIsolationStrategy.SEMAPHORE时，command最大请求数量</p>
+</li>
+</ul>
+<h2 id="Fallback"><a href="#Fallback" class="headerlink" title="Fallback"></a>Fallback</h2><ul>
+<li><p>fallback.isolation.semaphore.maxConcurrentRequests</p>
+<p>default:10</p>
+<p>fallback并发数，超过返回Exception</p>
+</li>
+<li><p>fallback.enabled</p>
+<p>default:true</p>
+</li>
+</ul>
+<h2 id="Circuit-Breaker"><a href="#Circuit-Breaker" class="headerlink" title="Circuit Breaker"></a>Circuit Breaker</h2><ul>
+<li><p>circuitBreaker.enabled</p>
+<p>default:true</p>
+</li>
+<li><p>circuitBreaker.requestVolumeThreshold</p>
+<p>default:20</p>
+<p>在一个窗口中，可以触发circuitBreaker的最小请求数，19个请求，即使全部失败也不会触发circuitBreaker</p>
+</li>
+<li><p>circuitBreaker.sleepWindowInMilliseconds</p>
+<p>default:5000</p>
+<p>circuitBreaker被触发后，circuitBreaker会在该时间段内拒绝所有请求，该时间过后，会尝试执行run，如果成功执行，会将circuitBreaker关闭，否则一直打开。</p>
+</li>
+<li><p>circuitBreaker.errorThresholdPercentage</p>
+<p>default:50</p>
+<p>在窗口内，失败请求的比例</p>
+</li>
+<li><p>circuitBreaker.forceOpen</p>
+<p>default:false</p>
+<p>打开circuitBreaker，拒绝所有请求</p>
+</li>
+<li><p>circuitBreaker.forceClosed</p>
+<p>default:false</p>
+<p>关闭circuitBreaker</p>
+</li>
+</ul>
+<h2 id="Metrics"><a href="#Metrics" class="headerlink" title="Metrics"></a>Metrics</h2><ul>
+<li><p>metrics.rollingStats.timeInMilliseconds</p>
+<p>default:10000</p>
+<p>窗口大小，保留多长时间的统计信息来决定是否使用circuitBreaker。</p>
+</li>
+<li><p>metrics.rollingStats.numBuckets</p>
+<p>default:10</p>
+<p>窗口包含的bucket数量</p>
+</li>
+<li><p>metrics.rollingPercentile.enabled</p>
+<p>default:true</p>
+<p>延迟执行是否被跟踪并按百分比展示</p>
+<p>​</p>
+<ul>
+<li>metrics.rollingPercentile.timeInMilliseconds</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>​</li>
+</ul>
+<h2 id="Request-Context"><a href="#Request-Context" class="headerlink" title="Request Context"></a>Request Context</h2><h1 id="Collapser-Properties"><a href="#Collapser-Properties" class="headerlink" title="Collapser Properties"></a>Collapser Properties</h1><h1 id="Thread-Pool-Properties"><a href="#Thread-Pool-Properties" class="headerlink" title="Thread Pool Properties"></a>Thread Pool Properties</h1>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/hystrix/hystrix-configuration/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/spring/springmvc/">返回值处理</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="返回值处理"><a href="#返回值处理" class="headerlink" title="返回值处理"></a>返回值处理</h2><ul>
+<li>ResponseBodyAdvice</li>
+<li>HandlerMethodReturnValueHandler</li>
+<li>ExceptionHandler</li>
+</ul>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/spring/springmvc/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/java/Java8实战/">java8</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="行为参数化"><a href="#行为参数化" class="headerlink" title="行为参数化"></a>行为参数化</h2><p>让方法接受多种行为作为参数，并在内部使用，来完成不同的行为。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;Apple&gt; filterApples(List&lt;Apple&gt; inventory,ApplePredicate p)&#123;</span><br><span class="line">    List&lt;Apple&gt; result=new ArrayList&lt;&gt;();</span><br><span class="line">    for(Apple apple:inventory)&#123;</span><br><span class="line">        if(p.test(apple))&#123;</span><br><span class="line">            result.add(apple);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/java/Java8实战/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/books/">待读书目</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <ol>
+<li>数据库系统实现</li>
+</ol>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/books/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
 
 <nav id="pagination">
   
@@ -967,7 +1044,7 @@ body{ -webkit-animation: bugfix infinite 1s; }
       </li>
     
       <li>
-        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+        <a href="/2018/04/17/zookeeper/zookeeper/">zookeeper注意点</a>
       </li>
     
   </ul>
