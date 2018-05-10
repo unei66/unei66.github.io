@@ -1,0 +1,380 @@
+<!DOCTYPE HTML>
+
+    <html lang="zh-Hans">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>network | Hello World</title>
+  <meta name="author" content="hello world">
+  
+  <meta name="description" content="状态
+
+TIME_WAIT
+客户端收到服务端发送的最后一个FIN，会进入TIME_WAIT状态，TIME_WAIT状态会持续2MSL，原因是，客户端进入TIME_WAIT后会发送给服务端一个ACK（1MSL），如果服务端没收到这个ACK，需要重发FIN（1MSL)，所以共2MSL。TIME_WAIT">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="network"/>
+  <meta property="og:site_name" content="Hello World"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+  <!-- Chinese readability improvements -->
+    article {font-weight: 400;letter-spacing: .01rem;}
+    article .entry{line-height:2;}
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Hello World</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>network</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <h3 id="状态"><a href="#状态" class="headerlink" title="状态"></a>状态</h3><p><img src="images/tcp-connect-close-state-change.png" style="zoom:50%"></p>
+<ul>
+<li><p>TIME_WAIT</p>
+<p>客户端收到服务端发送的最后一个FIN，会进入TIME_WAIT状态，TIME_WAIT状态会持续2MSL，原因是，客户端进入TIME_WAIT后会发送给服务端一个ACK（1MSL），如果服务端没收到这个ACK，需要重发FIN（1MSL)，所以共2MSL。TIME_WAIT期间，任何迟到的报文都会被丢弃。</p>
+</li>
+</ul>
+<h3 id="RST"><a href="#RST" class="headerlink" title="RST"></a>RST</h3><ul>
+<li>到不存在的端口的连接请求</li>
+<li>异常终止一个连接</li>
+</ul>
+<h3 id="呼入连接请求队列"><a href="#呼入连接请求队列" class="headerlink" title="呼入连接请求队列"></a>呼入连接请求队列</h3><ul>
+<li>正等待连接请求的一端有一个固定长度的请求队列，该队列中的连接已被TCP接受（三次握手完成），但还没有被应用层接受。TCP接受一个连接是将其放入队列，应用层接受连接是将其从队列中取出。</li>
+<li>通过backlog配置，一般0-5</li>
+</ul>
+<h1 id="Nagle"><a href="#Nagle" class="headerlink" title="Nagle"></a>Nagle</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Nagle用于解决小包过多问题。发送条件：一个就是缓 冲区中的字节数达到了一定量，另一个就是等待了一定的时间（一般的Nagle算法都是等待200ms）；</span><br><span class="line">这两个门槛的任何一个达到都必须发送数据了。一般情况下，如果数据流量很大，第二个条件是永远不会起作用的，但当发送小的数据包时，第二个门槛就发</span><br><span class="line">挥作用了，防止数据被无限的缓存在缓冲区。</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>关闭Nagle:TCP_NODELAY</p>
+<p>​</p>
+</li>
+</ul>
+<p>拥塞窗口 congestion window</p>
+<p>通告窗口</p>
+<p>发送窗口<br>接收窗口</p>
+<p>MSS：网络传输数据最大值<br>MTU：网络传输最大报文包<br>    mss加包头数据就等于mtu.<br>    简单说拿TCP包做例子。<br>    报文传输1400字节的数据的话，那么mss就是1400，再加上20字节IP包头，20字节tcp包头，那么mtu就是1400+20+20.<br>    当然传输的时候其他的协议还要加些包头在前面，总之mtu就是总的最后发出去的报文大小。mss就是你需要发出去的数据大小。</p>
+<p>win:接收窗口大小</p>
+<p>01:47:43.351148 IP 192.168.35.100.52666 &gt; 192.168.34.38.distinct: Flags [S], seq 3841046457, win 65535, options [mss 1460,nop,wscale 5,nop,nop,TS val 178469865 ecr 0,sackOK,eol], length 0<br>01:47:43.351388 IP 192.168.34.38.distinct &gt; 192.168.35.100.52666: Flags [S.], seq 3853031824, ack 3841046458, win 28960, options [mss 1460,sackOK,TS val 2565700 ecr 178469865,nop,wscale 6], length 0<br>01:47:43.351429 IP 192.168.35.100.52666 &gt; 192.168.34.38.distinct: Flags [.], ack 1, win 4117, options [nop,nop,TS val 178469865 ecr 2565700], length 0<br>01:47:43.351749 IP 192.168.34.38.distinct &gt; 192.168.35.100.52666: Flags [P.], seq 1:6, ack 1, win 453, options [nop,nop,TS val 2565700 ecr 178469865], length 5<br>01:47:43.351797 IP 192.168.35.100.52666 &gt; 192.168.34.38.distinct: Flags [.], ack 6, win 4117, options [nop,nop,TS val 178469865 ecr 2565700], length 0<br>01:47:43.352114 IP 192.168.34.38.ssh &gt; 192.168.35.100.52199: Flags [P.], seq 2214141269:2214141345, ack 4170104506, win 582, options [nop,nop,TS val 2565700 ecr 178460565], length 76<br>01:47:43.352158 IP 192.168.35.100.52199 &gt; 192.168.34.38.ssh: Flags [.], ack 76, win 4093, options [nop,nop,TS val 178469866 ecr 2565700], length 0</p>
+<ol>
+<li>从最简单的UDP协议开始，可以用C去写些简单的UDP发送/接受程序，然后记得会用抓包软件Wireshark去抓取程序运行时发送的数据包，逐层逐层的去看去学习。由于网络是分层设计，所以你对网络的了解最好也按照层次递进关系来学习，先不管路由，不管网络层，从传输层入手，一层一层的征服。    </li>
+<li>用raw socket实现步骤1中的程序，自己去构造UDP报文，根据协议手动的往里面塞数据，这样你自己“抚摸”过这些01之后对协议的感觉 <em>绝对</em> 不一样。    </li>
+<li>更深一步，用raw socket去构造整个网络层及以上的报文，进而去了解IP协议各字段协议。这个过程通过Wireshark去debug抓包分析。    </li>
+<li>经过上面三个步骤配合书本，我想你自己应该会对网络提起兴致，接下来就可以专注的看些理论了解路由算法，隧道技术等等。</li>
+</ol>
+<p>tcpdump -ieth0 port 3306 -w /home/localadmin/tcpdump -G 600 -s0</p>
+<p>tcpdump -ieth0 port 80 -w /root/tcpdump -G 600 -s0</p>
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/network/">network</a>
+  </div>
+
+          
+          <div class="share">
+  
+
+    
+
+    
+
+    
+      <div class="g-plusone"></div>
+      <span style="margin-right:10px"></span>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+ <div class="article-prev" >
+ <a href="/2018/04/17/network/ssh/" title="ssh">
+  <i class="fa fa-long-arrow-left"></i>
+  <span>
+  ssh</span>
+</a>
+</div>
+
+
+<div class="article-next">
+<a href="/2018/04/17/network/wireshark-https/"  title="wireshark https">
+ <span>wireshark https
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:unei.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2018/05/10/os/内存/">内存</a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/04/java/ParallelScavenge和ParNew/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/03/java/gc基础/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/26/java/tomcat异常分析/">tomcat异常分析</a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/books/">books</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/golang/">golang</a><small>4</small></li>
+  
+    <li><a href="/categories/hystrix/">hystrix</a><small>2</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>6</small></li>
+  
+    <li><a href="/categories/kafka/">kafka</a><small>3</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+    <li><a href="/categories/mysql/">mysql</a><small>1</small></li>
+  
+    <li><a href="/categories/network/">network</a><small>7</small></li>
+  
+    <li><a href="/categories/os/">os</a><small>1</small></li>
+  
+    <li><a href="/categories/redis/">redis</a><small>1</small></li>
+  
+    <li><a href="/categories/ruby/">ruby</a><small>2</small></li>
+  
+    <li><a href="/categories/spring/">spring</a><small>3</small></li>
+  
+    <li><a href="/categories/zookeeper/">zookeeper</a><small>1</small></li>
+  
+    <li><a href="/categories/总结/">总结</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2018 hello world
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+		
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+
+<link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script> -->
+<!-- <script src="/js/gallery.js"></script> -->
+
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

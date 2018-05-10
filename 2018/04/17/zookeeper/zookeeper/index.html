@@ -1,0 +1,381 @@
+<!DOCTYPE HTML>
+
+    <html lang="zh-Hans">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>zookeeper注意点 | Hello World</title>
+  <meta name="author" content="hello world">
+  
+  <meta name="description" content="节点不要太多
+全内存的节点，很容易fgc，stw，client端就不断reconnect
+
+watch不要太多
+太多会导致包太大
+
+server上下线要优先修改配置
+​
+
+
+Rolling Restart in Apache ZooKeeper to dynamically add servers ">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="zookeeper注意点"/>
+  <meta property="og:site_name" content="Hello World"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+  <!-- Chinese readability improvements -->
+    article {font-weight: 400;letter-spacing: .01rem;}
+    article .entry{line-height:2;}
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Hello World</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1>zookeeper注意点</h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <ul>
+<li><p>节点不要太多</p>
+<p>全内存的节点，很容易fgc，stw，client端就不断reconnect</p>
+</li>
+<li><p>watch不要太多</p>
+<p>太多会导致包太大</p>
+</li>
+<li><p>server上下线要优先修改配置</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="Rolling-Restart-in-Apache-ZooKeeper-to-dynamically-add-servers-to-the-Ensemble"><a href="#Rolling-Restart-in-Apache-ZooKeeper-to-dynamically-add-servers-to-the-Ensemble" class="headerlink" title="Rolling Restart in Apache ZooKeeper to dynamically add servers to the Ensemble"></a>Rolling Restart in Apache ZooKeeper to dynamically add servers to the Ensemble</h3><p>As of the writing of this post there is currently no way in Apache ZooKeeper to dynamically add a master ZooKeeper server to the ZooKeeper Ensemble.  That is until <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-107" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/ZOOKEEPER-107</a> is resolved.</p>
+<p>As a work around there is a process known as the ZooKeeper ensemble rolling restart to get around this issue.</p>
+<p>When you specify your zookeeper ensemble you setup a config file that holds the other zookeeper servers in the ensemble that it should attach to.  By modifying this file, according to the following steps, will allow you to add a zookeeper server to the ensemble without needing to take the service as a whole offline.  This could be due to a server replacement if a server goes down (and has to account for a DNS or IP address change) or if you want to expand the zookeeper cluster.</p>
+<ol>
+<li>Modify your /config/zoo.cfg file to hold the new list of servers with your new addition.  If you wanted to grow from 7 servers to 9 servers then you would be adding in information about server 8 and 9.<ol>
+<li>server.8=host:port:electionport</li>
+<li>server.9=host:port:electionport</li>
+<li>Ensure that server 8 and 9 are turned on and ready to go.  Start the ZooKeeper process on those servers.  They will follow the currently elected leader.</li>
+<li>Go through zookeeper servers 1-7 one by one and update the /config/zoo.cfg file so that they have information on zookeeper servers 8 and 9.  Restart the ZooKeeper service on that server.</li>
+<li>As you restart each server in step 3 above – ensure to watch your traffic and connection graphs on the other servers.  This is to ensure that the dropped connections from the other master get properly reassigned to other servers in the cluster.</li>
+</ol>
+</li>
+</ol>
+<p>While this is not an officially supported method for adding servers to the cluster – this is a method that will work,.  In fact it has been performed in a production environment with over 10,000 client connections attached to the ZooKeeper ensemble.  This has worked for </p>
+<p>1) needing to update DNS entries or IP address,</p>
+<p>2) replacing failed hardware and </p>
+<p>3) expanding a cluster to be a larger size.</p>
+
+        
+      </div>
+      <footer>
+        
+          
+  
+  <div class="categories">
+    <a href="/categories/zookeeper/">zookeeper</a>
+  </div>
+
+          
+          <div class="share">
+  
+
+    
+
+    
+
+    
+      <div class="g-plusone"></div>
+      <span style="margin-right:10px"></span>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+ <div class="article-prev" >
+ <a href="/2018/04/17/kafka/kafka-reassign-partitions/" title="kafka-reassign-partitions">
+  <i class="fa fa-long-arrow-left"></i>
+  <span>
+  kafka-reassign-partitions</span>
+</a>
+</div>
+
+
+<div class="article-next">
+<a href="/2018/04/17/golang/golang-test/"  title="golang-test">
+ <span>golang-test
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:unei.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2018/05/10/os/内存/">内存</a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/04/java/ParallelScavenge和ParNew/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/03/java/gc基础/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/26/java/tomcat异常分析/">tomcat异常分析</a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/books/">books</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/golang/">golang</a><small>4</small></li>
+  
+    <li><a href="/categories/hystrix/">hystrix</a><small>2</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>6</small></li>
+  
+    <li><a href="/categories/kafka/">kafka</a><small>3</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+    <li><a href="/categories/mysql/">mysql</a><small>1</small></li>
+  
+    <li><a href="/categories/network/">network</a><small>7</small></li>
+  
+    <li><a href="/categories/os/">os</a><small>1</small></li>
+  
+    <li><a href="/categories/redis/">redis</a><small>1</small></li>
+  
+    <li><a href="/categories/ruby/">ruby</a><small>2</small></li>
+  
+    <li><a href="/categories/spring/">spring</a><small>3</small></li>
+  
+    <li><a href="/categories/zookeeper/">zookeeper</a><small>1</small></li>
+  
+    <li><a href="/categories/总结/">总结</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2018 hello world
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+		
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+
+<link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script> -->
+<!-- <script src="/js/gallery.js"></script> -->
+
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE HTML>
+
+    <html lang="zh-Hans">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hello World</title>
+  <meta name="author" content="hello world">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Hello World"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+  <!-- Chinese readability improvements -->
+    article {font-weight: 400;letter-spacing: .01rem;}
+    article .entry{line-height:2;}
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Hello World</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h2></h2>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding">
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/05/10/os/内存/">内存</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-05-09T16:00:00.000Z">2018-05-10</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>test</p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/05/10/os/内存/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/05/04/java/ParallelScavenge和ParNew/"></a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-05-04T02:29:11.504Z">2018-05-04</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>ParallelScavenge和ParNew都是并行GC，主要是并行收集young gen，目的和性能其实都差不多。最明显的区别有下面几点：  </p>
+<p>1、PS以前是广度优先顺序来遍历对象图的，JDK6的时候改为默认用深度优先顺序遍历，并留有一个UseDepthFirstScavengeOrder参数来选择是用深度还是广度优先。在JDK6u18之后这个参数被去掉，PS变为只用深度优先遍历。ParNew则是一直都只用广度优先顺序来遍历 </p>
+<p> 2、PS完整实现了adaptive size policy，而ParNew及“分代式GC框架”内的其它GC都没有实现<strong>完</strong>（倒不是不能实现，就是麻烦+没人力资源去做）。所以千万千万别在用ParNew+CMS的组合下用UseAdaptiveSizePolicy，请只在使用UseParallelGC或UseParallelOldGC的时候用它。  </p>
+<p>3、由于在“分代式GC框架”内，ParNew可以跟CMS搭配使用，而ParallelScavenge不能。当时ParNew GC被从Exact VM移植到HotSpot VM的最大原因就是为了跟CMS搭配使用。  </p>
+<p>4、在PS成为主要的throughput GC之后，它还实现了针对NUMA的优化；而ParNew一直没有得到NUMA优化的实现。 </p>
+<p>from: <a href="http://hllvm.group.iteye.com/group/topic/37095#post-242695" target="_blank" rel="noopener">http://hllvm.group.iteye.com/group/topic/37095#post-242695</a></p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/05/04/java/ParallelScavenge和ParNew/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/05/03/java/gc基础/"></a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-05-03T15:06:47.917Z">2018-05-03</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h3 id="判断对象是否存活"><a href="#判断对象是否存活" class="headerlink" title="判断对象是否存活"></a>判断对象是否存活</h3><ol>
+<li><p>引用计数法 Reference Counting</p>
+</li>
+<li><p>可达性分析法</p>
+<p>通过GC Roots向下搜索，搜索不到的都可以回收。</p>
+<ul>
+<li>GC Roots<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中JNI引用的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>流程</th>
+<th>图示</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标记-清除算法 Mark-Sweep</td>
+<td>1. 标记无用对象<br>2. 清除</td>
+<td></td>
+<td></td>
+<td>1. 两个过程效率都不高<br>2.空间问题，会产生内存碎片</td>
+</tr>
+<tr>
+<td>复制算法 Copying</td>
+<td>将内存分为相等的两块，当一块用完，将存活对象复制到另一块，然后将已使用的一次性清理</td>
+<td></td>
+<td>速度快</td>
+<td>空间利用率低</td>
+</tr>
+<tr>
+<td>标记-整理算法 Mark-Compact</td>
+<td>1.标记无用对象<br>2.让存活对象向一端移动，最后清理掉边界外的内存</td>
+<td></td>
+<td>无内存碎片</td>
+<td>速度慢</td>
+</tr>
+<tr>
+<td>分代收集算法 Generational Collection</td>
+<td>根据对象存活周期将内存分为几块，每块采取不同的算法</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>什么是内存担保？</p>
+<p>如果另一块Survivor没有足够的空间存放上一次新生代收集下来的存活对象时，这些对象将直接通过分配担保机制进入老年代。</p>
+</li>
+</ol>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/05/03/java/gc基础/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/26/java/tomcat异常分析/">tomcat异常分析</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-25T16:00:00.000Z">2018-04-26</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h3 id="发现"><a href="#发现" class="headerlink" title="发现"></a>发现</h3><p>半个月前发现，邮件报警，线上的tomcat一直在报监控接口超时，这个监控接口就是返回个hello world,没有依赖其他系统。这个报警，大约几个小时来一次。</p>
+<h3 id="线上监控"><a href="#线上监控" class="headerlink" title="线上监控"></a>线上监控</h3><ol>
+<li><p>监控接口请求耗时监控</p>
+<p><img src="../../images/java-tomcat-gc/image003.png" alt="image003"></p>
+</li>
+</ol>
+<ol start="2">
+<li><p>网络监控</p>
+<p><img src="../../images/java-tomcat-gc/image001.png" alt="image001"></p>
+<p>cpu监控</p>
+<p><img src="../../images/java-tomcat-gc/image002.png" alt="image002"></p>
+</li>
+<li><p>jstat</p>
+<p><img src="../../images/java-tomcat-gc/gcutil.png" alt="gcutil"></p>
+</li>
+</ol>
+<h3 id="推断"><a href="#推断" class="headerlink" title="推断"></a>推断</h3><p>从上面三个可以看出，机器没死，活着呢，网络停止了，估计jvm在gc（最后证实确实如此）。</p>
+<h3 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h3><p>看一下原始的jvm参数（这个参数不是我配的😂）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-XX:+UseCompressedOops -Xms7G -Xmx7G -XX:MetaspaceSize=64M -XX:+MaxMetaspaceSize=384M -Xloggc:path/log.log -verbose:gc  -XX:HeapDumpPath=/tmp -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=4 -XX:ConcGCThreads=2 -XX:+HeapDumpOnOutOfMemoryError -XX:SurvivorRatio=26 -XX:+CMSParallelRemarkEnabled -XX:CMSInitiatingOccupancyFraction=80</span><br></pre></td></tr></table></figure>
+<p>首先，我需要看一下gc log，结果运维找不到日志，尴尬，相对路径，日志就没输出。第二，我要看一下fgc前后的堆变化情况，然后就加了下面的参数：</p>
+<p>-XX:+HeapDumpBeforeFullGC -XX:+HeadDumpAfterFullGC</p>
+<p>这俩东西就一起搞到线上去了。</p>
+<p>然后。。。等待问题复现。</p>
+<p>抓到了，看gclog！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2018-04-25T09:58:55.273+0800: 39018.975: [GC (Allocation Failure) 39018.976: [ParNew (promotion failed): 328576K-&gt;328576K(328576K), 0.2897109 secs]39019.266: [CMS2018-04-25T09:59:37.021+0800: 39060.736: [CMS-concurrent-sweep: 61.437/80.407 secs] [Times: user=85.18 sys=9.30, real=80.42 secs]</span><br><span class="line"> (concurrent mode failure): 5754419K-&gt;709193K(6999296K), 93.9618683 secs] 6066058K-&gt;709193K(7327872K), [Metaspace: 125046K-&gt;125046K(1167360K)], 94.2613781 secs] [Times: user=8.22 sys=3.47, real=94.26 secs]</span><br></pre></td></tr></table></figure>
+<p>看到这里，就发现问题不对劲了，concurrent mode failure，real 80.42, 94.26。</p>
+<p>其实在这个阶段，我没仔细算gc前后的heap大小，又去看了一下heap dump，dump也没看出来啥，但是，fgc前后的文件大小差距就大了，一个6.5g，一个600m。这个提醒我去看一下gc log。</p>
+<p>young大小：320M？</p>
+<p>看一下gc log中的初始化参数吧，找到gc log的最开头位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Memory: 4k page, physical 8010824k(7578720k free), swap 2097148k(1996844k free)</span><br><span class="line">CommandLine flags: -XX:+CMSClassUnloadingEnabled -XX:CMSInitiatingOccupancyFraction=80 -XX:+CMSParallelRemarkEnabled -XX:ConcGCThreads=2 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp/ -XX:InitialHeapSize=7516192768 -XX:+ManagementServer -XX:MaxHeapSize=7516192768 -XX:MaxMetaspaceSize=402653184 -XX:MaxNewSize=348966912 -XX:MetaspaceSize=67108864 -XX:NewSize=348966912 -XX:OldPLABSize=16 -XX:OldSize=697933824 -XX:ParallelGCThreads=4 -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:SurvivorRatio=26 -XX:+UseCMSCompactAtFullCollection -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseConcMarkSweepGC -XX:+UseParNewGC</span><br><span class="line">2018-04-24T23:08:44.044+0800: 7.746: [GC (Allocation Failure) 7.746: [ParNew: 316416K-&gt;12160K(328576K), 0.0890565 secs] 316416K-&gt;24149K(7327872K), 0.0891831 secs] [Times: user=0.15 sys=0.01, real=0.09 secs]</span><br><span class="line">2018-04-24T23:08:48.077+0800: 11.778: [GC (Allocation Failure) 11.778: [ParNew: 328576K-&gt;12159K(328576K), 0.0597998 secs] 340565K-&gt;48432K(7327872K), 0.0598772 secs] [Times: user=0.14 sys=0.01, real=0.06 secs]</span><br><span class="line">2018-04-24T23:08:50.000+0800: 13.702: [GC (Allocation Failure) 13.702: [ParNew: 328575K-&gt;12160K(328576K), 0.0672809 secs] 364848K-&gt;69694K(7327872K), 0.0673553 secs] [Times: user=0.23 sys=0.01, real=0.07 secs]</span><br><span class="line">2018-04-24T23:08:50.742+0800: 14.444: [GC (Allocation Failure) 14.444: [ParNew: 328576K-&gt;12160K(328576K), 0.0572250 secs] 386110K-&gt;101739K(7327872K), 0.0572988 secs] [Times: user=0.13 sys=0.00, real=0.06 secs]</span><br></pre></td></tr></table></figure>
+<ol>
+<li>启动参数：NewSize，MaxNewSize 340788K <strong>这么大的堆，这么小的新生代？</strong></li>
+<li>gc 日志：</li>
+</ol>
+<p>[ParNew: 328576K-&gt;12160K(328576K)  一个survivor区占用12160K，328576K=1个survivor+eden，survivor:eden=2:26 (12160*2):(328576-12160)=2:26  <strong>-XX:SurvivorRatio=26</strong>不理解这个参数为何要配这么多</p>
+<ol start="3">
+<li><p>-XX:CMSInitiatingOccupancyFraction=80 </p>
+<p>配置了启动的时机，但是没有配置-XX:+UseCMSInitiatingOccupancyOnly，导致这个配置成为摆设。</p>
+</li>
+<li><p>gc log中发现了System.gc</p>
+<p>那就把这个加上：-XX:+DisableExplicitGC，忽略系统的gc调用。</p>
+</li>
+</ol>
+<p>最终参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-Xms7G -Xmx7G -Xmn2G </span><br><span class="line">-XX:MetaspaceSize=64M </span><br><span class="line">-XX:MaxMetaspaceSize=384M </span><br><span class="line">-Xloggc:xxx </span><br><span class="line">-verbose:gc </span><br><span class="line">-XX:+PrintGCDateStamps </span><br><span class="line">-XX:+PrintGCDetails </span><br><span class="line">-XX:+UseConcMarkSweepGC </span><br><span class="line">-XX:+UseCMSCompactAtFullCollection </span><br><span class="line">-XX:CMSInitiatingOccupancyFraction=60</span><br><span class="line">-XX:+UseCMSInitiatingOccupancyOnly </span><br><span class="line">-XX:+CMSClassUnloadingEnabled </span><br><span class="line">-XX:+CMSParallelRemarkEnabled</span><br><span class="line">-XX:ParallelGCThreads=4 </span><br><span class="line">-XX:ConcGCThreads=2 </span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError </span><br><span class="line">-XX:HeapDumpPath=/tmp/ </span><br><span class="line">-XX:+DisableExplicitGC</span><br></pre></td></tr></table></figure>
+<p>考虑加上的参数：</p>
+<p>CMSFullGCsBeforeCompaction  ：在上一次CMS并发GC执行过后，到底还要再执行多少次full GC才会做压缩。默认是0，也就是在默认配置下每次CMS GC顶不住了而要转入full GC的时候都会做压缩。 把CMSFullGCsBeforeCompaction配置为10，就会让上面说的第一个条件变成每隔10次真正的full GC才做一次压缩（<strong>而不是每10次CMS并发GC就做一次压缩，目前VM里没有这样的参数</strong>）。这会使full GC更少做压缩，也就更容易使CMS的old gen受碎片化问题的困扰。 本来这个参数就是用来配置降低full GC压缩的频率，以期减少某些full GC的暂停时间。CMS回退到full GC时用的算法是<strong>mark-sweep-compact</strong>，但compaction是可选的，不做的话碎片化会严重些但这次full GC的暂停时间会短些；这是个取舍。</p>
+<p>CMSScavengeBeforeRemark : CMS前进行一次MinorGC</p>
+<p>调整后大约24h ，gc情况：</p>
+<p><img src="../../images/java-tomcat-gc/gc-after-24h.png" alt="gc-after-24h"></p>
+<p>平均一个小时两次fgc，每次的时间不到0.5s，大体上可以接受。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><p>cms流程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">2018-04-28T15:48:13.167+0800: 1341.458: [GC (CMS Initial Mark) [1 CMS-initial-mark: 4076417K(5242880K)] 4093238K(7130368K), 0.0064435 secs] [Times: user=0.01 sys=0.00, real=0.01 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.173+0800: 1341.465: [CMS-concurrent-mark-start]</span><br><span class="line">2018-04-28T15:48:13.416+0800: 1341.708: [CMS-concurrent-mark: 0.240/0.243 secs] [Times: user=0.88 sys=0.07, real=0.24 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.416+0800: 1341.708: [CMS-concurrent-preclean-start]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.436+0800: 1341.728: [CMS-concurrent-preclean: 0.019/0.020 secs] [Times: user=0.07 sys=0.00, real=0.02 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:13.436+0800: 1341.728: [CMS-concurrent-abortable-preclean-start]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:15.145+0800: 1343.437: [GC (Allocation Failure) 1343.437: [ParNew: 1693259K-&gt;189383K(1887488K), 0.3191849 secs] 5769676K-&gt;4265801K(7130368K), 0.3194583 secs] [Times: user=0.40 sys=0.00, real=0.32 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:17.424+0800: 1345.716: [CMS-concurrent-abortable-preclean: 2.845/3.988 secs] [Times: user=10.56 sys=0.64, real=3.99 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:17.427+0800: 1345.719: [GC (CMS Final Remark) [YG occupancy: 1685779 K (1887488 K)]1345.719: [Rescan (parallel) , 0.3523662 secs]1346.071: [weak refs processing, 0.3003263 secs]1346.372: [class unloading, 0.1228579 secs]1346.495: [scrub symbol table, 0.0134209 secs]1346.508: [scrub string table, 0.0023638 secs][1 CMS-remark: 4076417K(5242880K)] 5762197K(7130368K), 0.7958359 secs] [Times: user=1.85 sys=0.00, real=0.80 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:18.238+0800: 1346.530: [CMS-concurrent-sweep-start]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:18.419+0800: 1346.711: [GC (Allocation Failure) 1346.711: [ParNew: 1867207K-&gt;199251K(1887488K), 0.3801573 secs] 5812075K-&gt;4163268K(7130368K), 0.3804263 secs] [Times: user=0.52 sys=0.00, real=0.38 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:20.851+0800: 1349.143: [GC (Allocation Failure) 1349.143: [ParNew: 1877075K-&gt;159618K(1887488K), 0.2674537 secs] 3508407K-&gt;1803795K(7130368K), 0.2677172 secs] [Times: user=0.35 sys=0.00, real=0.27 secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:22.040+0800: 1350.331: [CMS-concurrent-sweep: 3.127/3.801 secs] [Times: user=11.04 sys=0.50, real=3.80secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:22.040+0800: 1350.331: [CMS-concurrent-reset-start]</span><br><span class="line">2018-04-28T15:48:22.051+0800: 1350.343: [CMS-concurrent-reset: 0.011/0.011 secs] [Times: user=0.04 sys=0.00, real=0.01secs]</span><br><span class="line"></span><br><span class="line">2018-04-28T15:48:22.683+0800: 1350.975: [GC (Allocation Failure) 1350.975: [ParNew: 1837442K-&gt;204471K(1887488K),0.4063115 secs] 2327686K-&gt;697104K(7130368K), 0.4065654 secs] [Times: user=0.47 sys=0.00, real=0.40 secs]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>CMS Initial Mark </p>
+<p>初始标记。STW。old size：4076417K，old capacity:5242880K，heap size(不包括perm):4093238K,heap size:7130368K</p>
+</li>
+<li><p>CMS-concurrent-preclean</p>
+</li>
+<li><p>CMS Final Remark</p>
+<p>最终标记。STW。</p>
+<p>[YG occupancy: 1685779 K (1887488 K)]1345.719: [Rescan (parallel) , 0.3523662 secs]1346.071: [weak refs processing, 0.3003263 secs]1346.372: [class unloading, 0.1228579 secs]1346.495: [scrub symbol table, 0.0134209 secs]1346.508: [scrub string table, 0.0023638 secs][1 CMS-remark: 4076417K(5242880K)] 5762197K(7130368K), 0.7958359 secs] [Times: user=1.85 sys=0.00, real=0.80 secs]</p>
+<p>young size:1685779K</p>
+<p>young capacity:1887488 K</p>
+<p>heap size:5762197K</p>
+<p>heap capacity:7130368K</p>
+</li>
+<li><p>分析一下CMS-concurrent-sweep-start 以后的几次ParNew：</p>
+<p>| 次数 | young size before MinorGC | young size after MinorGC | heap size before MinorGC | heap size after MinorGC |<br>| —- | ————————- | ———————— | ———————— | ———————– |<br>| 1    | 1867207K                  | 199251K                  | 5812075K                 | 4163268K                |<br>| 2    | 1877075K                  | 159618K                  | 3508407K                 | 1803795K                |<br>| 3    | 1837442K                  | 204471K                  | 2327686K                 | 697104K                 |</p>
+<p>从表格中计算，cms前后，old size：从4163268K-199251K  大约将为697104K-204471K。</p>
+</li>
+</ul>
+</li>
+<li><p>cms参数调整怎么算优秀？</p>
+<p>标准：以对象从新生代提升到老年代的速度对老年代中的对象进行收集。</p>
+<p>达不到这个标准则称之为失速(Lost the Race)。失速会导致Stop-The-World 压缩式垃圾收集(单线程的Serial Old FullGC)。避免失速的关键是要结合足够大的老年代和足够快地初始化CMS垃圾收集周期，让它以比提升速率更快的速度回收空间。</p>
+</li>
+<li><p>concurrent mode failure</p>
+<ul>
+<li>当CMS GC进行过程中，Minor GC向老年代提升的速度快于收集器收集的速度。</li>
+<li>CMS 和MinorGC同时进行时，新生代Survivor空间放不下，需要提升到老年代。</li>
+<li>CMS进行时，业务对象直接分配到老年代，老年代放不下。</li>
+</ul>
+<p>上述三种会导致该现象发生。</p>
+</li>
+</ol>
+<p>   发生压缩式垃圾收集时，cms gc log会出现并发模式失效(Concurrent Mode Failure)日志：</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2018-04-30T08:27:57.376+0800: 147363.218: [GC (Allocation Failure) 147363.223: [ParNew: 2831168K-&gt;2831168K(2831168K), 0.0018961 secs]147363.225: [CMS2018-04-30T08:28:01.910+0800: 147367.747: [CMS-concurrent-sweep: 45.882/77.866 secs] [Times: user=138.72 sys=18.07, real=77.88 secs](concurrent mode failure): 4045869K-&gt;745862K(4194304K), 38.8136017 secs] 6877037K-&gt;745862K(7025472K), [Metaspace: 125954K-&gt;125954K(1167360K)], 38.8679322 secs] [Times: user=4.18 sys=1.47, real=38.86 secs]</span><br></pre></td></tr></table></figure>
+<p>   MinorGC 前后：young size都是2831168K ，说明MinorGC收集不了，而cms启动时，old区的可用空间为5G*30%，放不下young空间的数据，导致STW，然后转化为单线程的FullGC。例子中FullGC耗时38.86s。</p>
+<ol start="4">
+<li><p>promotion failed</p>
+<p>MinorGC时，Sruvivor space放不下，只能放到老年代，而此时老年代也放不下，此时会导致STW 使用Serial Old收集器进行Full GC.</p>
+</li>
+</ol>
+<p><a href="http://itindex.net/detail/47030-cms-gc-%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">http://itindex.net/detail/47030-cms-gc-%E9%97%AE%E9%A2%98</a></p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/tech/index.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/tech/index.html</a></p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/gc-tuning-6-140523.html</a></p>
+<p><a href="https://www.jianshu.com/p/ca1b0d4107c5" target="_blank" rel="noopener">https://www.jianshu.com/p/ca1b0d4107c5</a></p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/26/java/tomcat异常分析/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h3 id="topic添加partition"><a href="#topic添加partition" class="headerlink" title="topic添加partition"></a>topic添加partition</h3><ul>
+<li>需操作的topic，定义一个json文件</li>
+</ul>
+<p>➜  bin vi topic.json</p>
+<pre><code>{
+    &quot;topics&quot;:[{&quot;topics&quot;:&quot;test&quot;}],
+    &quot;version&quot;:1
+}
+</code></pre><ul>
+<li>生成reassign计划</li>
+</ul>
+<p>➜  bin ./kafka-reassign-partitions.sh –zookeeper localhost:2181 –topics-to-move-json-file ./topic.json –broker-list ‘0,1,2’ –generate<br>Current partition replica assignment<br>{“version”:1,”partitions”:[{“topic”:”test”,”partition”:4,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:1,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:2,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:5,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:0,”replicas”:[2,1,0]},{“topic”:”test”,”partition”:3,”replicas”:[2,1,0]}]}</p>
+<p>Proposed partition reassignment configuration<br>{“version”:1,”partitions”:[{“topic”:”test”,”partition”:4,”replicas”:[2,1,0]},{“topic”:”test”,”partition”:1,”replicas”:[2,0,1]},{“topic”:”test”,”partition”:5,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:2,”replicas”:[0,1,2]},{“topic”:”test”,”partition”:0,”replicas”:[1,2,0]},{“topic”:”test”,”partition”:3,”replicas”:[1,0,2]}]}</p>
+<ul>
+<li>保存reassign计划json</li>
+</ul>
+<p>➜  bin vi reassignment.json</p>
+<ul>
+<li>执行reassign计划</li>
+</ul>
+<p>➜  bin ./kafka-reassign-partitions.sh –zookeeper localhost:2181 –reassignment-json-file ./reassignment.json –execute<br>Current partition replica assignment</p>
+<p>{“version”:1,”partitions”:[{“topic”:”test”,”partition”:4,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:1,”replicas”:[0,2,1]},{“topic”:”test”,”partition”:2,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:5,”replicas”:[1,0,2]},{“topic”:”test”,”partition”:0,”replicas”:[2,1,0]},{“topic”:”test”,”partition”:3,”replicas”:[2,1,0]}]}</p>
+<p>Save this to use as the –reassignment-json-file option during rollback<br>Successfully started reassignment of partitions.</p>
+<ul>
+<li>校验reassign计划</li>
+</ul>
+<p>➜  bin ./kafka-reassign-partitions.sh –zookeeper localhost:2181 –reassignment-json-file ./reassignment.json –verify<br>Status of partition reassignment:<br>Reassignment of partition [test,4] completed successfully<br>Reassignment of partition [test,0] completed successfully<br>Reassignment of partition [test,3] completed successfully<br>Reassignment of partition [test,2] completed successfully<br>Reassignment of partition [test,1] completed successfully<br>Reassignment of partition [test,5] completed successfully</p>
+<p>增加partition完成，但是老的partition中的数据不会迁移到新的partition</p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/kafka/kafka-reassign-partitions/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/zookeeper/zookeeper/">zookeeper注意点</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <ul>
+<li><p>节点不要太多</p>
+<p>全内存的节点，很容易fgc，stw，client端就不断reconnect</p>
+</li>
+<li><p>watch不要太多</p>
+<p>太多会导致包太大</p>
+</li>
+<li><p>server上下线要优先修改配置</p>
+<p>​</p>
+</li>
+</ul>
+<h3 id="Rolling-Restart-in-Apache-ZooKeeper-to-dynamically-add-servers-to-the-Ensemble"><a href="#Rolling-Restart-in-Apache-ZooKeeper-to-dynamically-add-servers-to-the-Ensemble" class="headerlink" title="Rolling Restart in Apache ZooKeeper to dynamically add servers to the Ensemble"></a>Rolling Restart in Apache ZooKeeper to dynamically add servers to the Ensemble</h3><p>As of the writing of this post there is currently no way in Apache ZooKeeper to dynamically add a master ZooKeeper server to the ZooKeeper Ensemble.  That is until <a href="https://issues.apache.org/jira/browse/ZOOKEEPER-107" target="_blank" rel="noopener">https://issues.apache.org/jira/browse/ZOOKEEPER-107</a> is resolved.</p>
+<p>As a work around there is a process known as the ZooKeeper ensemble rolling restart to get around this issue.</p>
+<p>When you specify your zookeeper ensemble you setup a config file that holds the other zookeeper servers in the ensemble that it should attach to.  By modifying this file, according to the following steps, will allow you to add a zookeeper server to the ensemble without needing to take the service as a whole offline.  This could be due to a server replacement if a server goes down (and has to account for a DNS or IP address change) or if you want to expand the zookeeper cluster.</p>
+<ol>
+<li>Modify your /config/zoo.cfg file to hold the new list of servers with your new addition.  If you wanted to grow from 7 servers to 9 servers then you would be adding in information about server 8 and 9.<ol>
+<li>server.8=host:port:electionport</li>
+<li>server.9=host:port:electionport</li>
+<li>Ensure that server 8 and 9 are turned on and ready to go.  Start the ZooKeeper process on those servers.  They will follow the currently elected leader.</li>
+<li>Go through zookeeper servers 1-7 one by one and update the /config/zoo.cfg file so that they have information on zookeeper servers 8 and 9.  Restart the ZooKeeper service on that server.</li>
+<li>As you restart each server in step 3 above – ensure to watch your traffic and connection graphs on the other servers.  This is to ensure that the dropped connections from the other master get properly reassigned to other servers in the cluster.</li>
+</ol>
+</li>
+</ol>
+<p>While this is not an officially supported method for adding servers to the cluster – this is a method that will work,.  In fact it has been performed in a production environment with over 10,000 client connections attached to the ZooKeeper ensemble.  This has worked for </p>
+<p>1) needing to update DNS entries or IP address,</p>
+<p>2) replacing failed hardware and </p>
+<p>3) expanding a cluster to be a larger size.</p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/zookeeper/zookeeper/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/golang/golang-test/">golang-test</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>1，测试单个文件，一定要带上被测试的原文件</p>
+<pre><code>Go test -v  wechat_test.go wechat.go 
+</code></pre><p>2，测试单个方法</p>
+<pre><code>go test -v -test.run TestRefreshAccessToken
+</code></pre>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/golang/golang-test/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/java/Java8实战/">java8</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="行为参数化"><a href="#行为参数化" class="headerlink" title="行为参数化"></a>行为参数化</h2><p>让方法接受多种行为作为参数，并在内部使用，来完成不同的行为。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static List&lt;Apple&gt; filterApples(List&lt;Apple&gt; inventory,ApplePredicate p)&#123;</span><br><span class="line">    List&lt;Apple&gt; result=new ArrayList&lt;&gt;();</span><br><span class="line">    for(Apple apple:inventory)&#123;</span><br><span class="line">        if(p.test(apple))&#123;</span><br><span class="line">            result.add(apple);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/java/Java8实战/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/spring/springmvc/">返回值处理</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="返回值处理"><a href="#返回值处理" class="headerlink" title="返回值处理"></a>返回值处理</h2><ul>
+<li>ResponseBodyAdvice</li>
+<li>HandlerMethodReturnValueHandler</li>
+<li>ExceptionHandler</li>
+</ul>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/spring/springmvc/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2018/04/17/java/CompletableFuture/">java.util.concurrent.CompletableFuture</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-04-16T16:00:00.000Z">2018-04-17</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h3 id="API"><a href="#API" class="headerlink" title="API"></a>API</h3><ul>
+<li>supplyAsync 向ForkJoinPool.commonPool（或者一个指定的Executor）提交一个异步执行的任务，并包含一个返回值，返回一个新的CompletableFuture</li>
+<li>runAsync 向ForkJoinPool.commonPool（或者一个指定的Executor）提交一个异步执行的任务，无返回值，返回一个新的CompletableFuture</li>
+</ul>
+<p>CompletableFuture包含几个关键属性</p>
+<p>result ：Future执行的结果或错误（AltResult）</p>
+<p>Completion stack : treiber stack ，多个操作，例如supplyAsync,thenApplyAsync，会组合为栈</p>
+<p>实例：</p>
+<ol>
+<li><p>stageA=CompletableFuture.supplyAsync(supplierA)<br>supplyAsync返回后：</p>
+<p>stack：null</p>
+<p>result：如果supplierA执行完，则result为其返回值，否则为null</p>
+</li>
+<li><p>stageB=stageA.thenApplySync(functionB)</p>
+<p>stageA.stack UniApply</p>
+<p>​    src=stageA</p>
+<p>​    dep=stageB</p>
+</li>
+<li><p>stageC=stageB.thenApplySync(functionC)</p>
+<p>stageB.stack UniApply</p>
+<p>​    src=stageB</p>
+<p>​    dep=stageC</p>
+</li>
+</ol>
+<p>supplierA,functionB,functionC 均为耗时操作，如果supplierA执行很快，在第二部完成时，stagetA.stack可能为null，不需要初始化stageA的stack</p>
+<ol>
+<li>supplyAsync调用asyncSupplyStage完成实现，实际上就是生成一个AsyncSupply对象，提交到线程池。当只调用supplyAsync而且没有后续操作时，该方法返回CompleteFuture，和普通的Future没有太大区别。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;U&gt; <span class="function">CompletableFuture&lt;U&gt; <span class="title">asyncSupplyStage</span><span class="params">(Executor e,</span></span></span><br><span class="line"><span class="function"><span class="params">                                                    Supplier&lt;U&gt; f)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (f == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">       CompletableFuture&lt;U&gt; d = <span class="keyword">new</span> CompletableFuture&lt;U&gt;();</span><br><span class="line">       e.execute(<span class="keyword">new</span> AsyncSupply&lt;U&gt;(d, f));</span><br><span class="line">       <span class="keyword">return</span> d;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">AsyncSupply</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">ForkJoinTask</span>&lt;<span class="title">Void</span>&gt;</span></span><br><span class="line"><span class="class">           <span class="keyword">implements</span> <span class="title">Runnable</span>, <span class="title">AsynchronousCompletionTask</span> </span>&#123;</span><br><span class="line">       CompletableFuture&lt;T&gt; dep; Supplier&lt;T&gt; fn;</span><br><span class="line">       AsyncSupply(CompletableFuture&lt;T&gt; dep, Supplier&lt;T&gt; fn) &#123;</span><br><span class="line">           <span class="keyword">this</span>.dep = dep; <span class="keyword">this</span>.fn = fn;</span><br><span class="line">       &#125;</span><br><span class="line">	</span><br><span class="line">	... </span><br><span class="line">	</span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">           CompletableFuture&lt;T&gt; d; Supplier&lt;T&gt; f;</span><br><span class="line">           <span class="keyword">if</span> ((d = dep) != <span class="keyword">null</span> &amp;&amp; (f = fn) != <span class="keyword">null</span>) &#123;</span><br><span class="line">               dep = <span class="keyword">null</span>; fn = <span class="keyword">null</span>;</span><br><span class="line">               <span class="keyword">if</span> (d.result == <span class="keyword">null</span>) &#123;</span><br><span class="line">                   <span class="keyword">try</span> &#123;</span><br><span class="line">                   	<span class="comment">//f.get supplyAsync初始化的Supplier</span></span><br><span class="line">                   	<span class="comment">//completeValue 会将执行结果赋值给d的result</span></span><br><span class="line">                       d.completeValue(f.get());</span><br><span class="line">                   &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">                   	<span class="comment">//如果失败，completeThrowable会将结果复制给result，AltResult类型</span></span><br><span class="line">                       d.completeThrowable(ex);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">               <span class="comment">//在实例中，当supplierA完成后，会调用dep(即stageB)的postComplete,postComplete--&gt;tryFile--&gt;uniApply(或者biApply等方法)--&gt;dep.fn.apply(传入stageA的返回值),同样在stageB执行完，会触发stageC.postComplete</span></span><br><span class="line">               d.postComplete();</span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Pops and tries to trigger all reachable dependents.  Call only</span></span><br><span class="line"><span class="comment">    * when known to be done.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">postComplete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * On each step, variable f holds current dependents to pop</span></span><br><span class="line"><span class="comment">        * and run.  It is extended along only one path at a time,</span></span><br><span class="line"><span class="comment">        * pushing others to avoid unbounded recursion.</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">       CompletableFuture&lt;?&gt; f = <span class="keyword">this</span>; Completion h;</span><br><span class="line">       <span class="keyword">while</span> ((h = f.stack) != <span class="keyword">null</span> ||</span><br><span class="line">              (f != <span class="keyword">this</span> &amp;&amp; (h = (f = <span class="keyword">this</span>).stack) != <span class="keyword">null</span>)) &#123;</span><br><span class="line">           CompletableFuture&lt;?&gt; d; Completion t;</span><br><span class="line">           <span class="keyword">if</span> (f.casStack(h, t = h.next)) &#123;</span><br><span class="line">               <span class="keyword">if</span> (t != <span class="keyword">null</span>) &#123;</span><br><span class="line">                   <span class="keyword">if</span> (f != <span class="keyword">this</span>) &#123;</span><br><span class="line">                       pushStack(h);</span><br><span class="line">                       <span class="keyword">continue</span>;</span><br><span class="line">                   &#125;</span><br><span class="line">                   h.next = <span class="keyword">null</span>;    <span class="comment">// detach</span></span><br><span class="line">               &#125;</span><br><span class="line">               <span class="comment">//tryFire</span></span><br><span class="line">               f = (d = h.tryFire(NESTED)) == <span class="keyword">null</span> ? <span class="keyword">this</span> : d;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>thenApplyAsync  实现，如果实例中A已经执行完成，即当前Completable.result有返回值，则尝试执行B。如果A没有执行完成，则返回一个CompletableFuture.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;V&gt; <span class="function">CompletableFuture&lt;V&gt; <span class="title">uniApplyStage</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">       Executor e, Function&lt;? <span class="keyword">super</span> T,? extends V&gt; f)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (f == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">       CompletableFuture&lt;V&gt; d =  <span class="keyword">new</span> CompletableFuture&lt;V&gt;();</span><br><span class="line">       <span class="comment">// 判断是否要加入到stack中</span></span><br><span class="line">       <span class="keyword">if</span> (e != <span class="keyword">null</span> || !d.uniApply(<span class="keyword">this</span>, f, <span class="keyword">null</span>)) &#123;</span><br><span class="line">           UniApply&lt;T,V&gt; c = <span class="keyword">new</span> UniApply&lt;T,V&gt;(e, d, <span class="keyword">this</span>, f);</span><br><span class="line">           <span class="comment">//this.stack=c</span></span><br><span class="line">           <span class="comment">//c.dep=d</span></span><br><span class="line">           <span class="comment">//c.src=this</span></span><br><span class="line">           push(c);</span><br><span class="line">           <span class="comment">//尝试调用f</span></span><br><span class="line">           c.tryFire(SYNC);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> d;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(UniCompletion&lt;?,?&gt; c)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (c != <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="comment">//result==null this.result不为null，即当前CompletableFuture未执行完</span></span><br><span class="line">           <span class="keyword">while</span> (result == <span class="keyword">null</span> &amp;&amp; !tryPushStack(c))</span><br><span class="line">               lazySetNext(c, <span class="keyword">null</span>); <span class="comment">// clear on failure</span></span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryPushStack</span><span class="params">(Completion c)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//当前CompletableFuture的stack，如果	</span></span><br><span class="line">       <span class="comment">//CompletableFuturesupplyAsync().thenApplyAsync,stack=null</span></span><br><span class="line">       Completion h = stack;</span><br><span class="line">       <span class="comment">//将c的next设置为h</span></span><br><span class="line">       lazySetNext(c, h);</span><br><span class="line">       <span class="comment">//将this.stack 设置为c</span></span><br><span class="line">       <span class="keyword">return</span> UNSAFE.compareAndSwapObject(<span class="keyword">this</span>, STACK, h, c);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+<li><p>AsyncSupply.run—&gt;stageA.postComplete—&gt;stageB.tryFire(NEASTED)—&gt;stageB.uniApply—&gt;stageB.claim(提交到Executor异步处理)</p>
+<p>就是将UniApply提交到Executor，Executor调用tryFire(ASYNC)</p>
+<p>—&gt;uniApply(c=null)</p>
+<p>—&gt;completeValue(f.apply(s)) //实际业务代码</p>
+<p>—&gt;postFire</p>
+<p>—&gt;postComplete</p>
+<p>—&gt;同上，每个uniApply依次调用。</p>
+<p>tryFire 不同的参数，不同的逻辑，也是神奇。</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> &lt;S&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">uniApply</span><span class="params">(CompletableFuture&lt;S&gt; a,</span></span></span><br><span class="line"><span class="function"><span class="params">                           Function&lt;? <span class="keyword">super</span> S,? extends T&gt; f,</span></span></span><br><span class="line"><span class="function"><span class="params">                           UniApply&lt;S,T&gt; c)</span> </span>&#123;</span><br><span class="line">    Object r; Throwable x;</span><br><span class="line">    <span class="keyword">if</span> (a == <span class="keyword">null</span> || (r = a.result) == <span class="keyword">null</span> || f == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    tryComplete: <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (r <span class="keyword">instanceof</span> AltResult) &#123;</span><br><span class="line">            <span class="keyword">if</span> ((x = ((AltResult)r).ex) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                completeThrowable(x, r);</span><br><span class="line">                <span class="keyword">break</span> tryComplete;</span><br><span class="line">            &#125;</span><br><span class="line">            r = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (c != <span class="keyword">null</span> &amp;&amp; !c.claim())</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>) S s = (S) r;</span><br><span class="line">            completeValue(f.apply(s));</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">            completeThrowable(ex);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2018/04/17/java/CompletableFuture/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+  
+    <a href="/page/2/" class="alignright next">Next</a>
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:unei.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2018/05/10/os/内存/">内存</a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/04/java/ParallelScavenge和ParNew/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/03/java/gc基础/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/26/java/tomcat异常分析/">tomcat异常分析</a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/books/">books</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/golang/">golang</a><small>4</small></li>
+  
+    <li><a href="/categories/hystrix/">hystrix</a><small>2</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>6</small></li>
+  
+    <li><a href="/categories/kafka/">kafka</a><small>3</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+    <li><a href="/categories/mysql/">mysql</a><small>1</small></li>
+  
+    <li><a href="/categories/network/">network</a><small>7</small></li>
+  
+    <li><a href="/categories/os/">os</a><small>1</small></li>
+  
+    <li><a href="/categories/redis/">redis</a><small>1</small></li>
+  
+    <li><a href="/categories/ruby/">ruby</a><small>2</small></li>
+  
+    <li><a href="/categories/spring/">spring</a><small>3</small></li>
+  
+    <li><a href="/categories/zookeeper/">zookeeper</a><small>1</small></li>
+  
+    <li><a href="/categories/总结/">总结</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2018 hello world
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+		
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+
+<link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script> -->
+<!-- <script src="/js/gallery.js"></script> -->
+
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

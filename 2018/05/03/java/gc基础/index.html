@@ -1,0 +1,415 @@
+<!DOCTYPE HTML>
+
+    <html lang="zh-Hans">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hello World</title>
+  <meta name="author" content="hello world">
+  
+  <meta name="description" content="判断对象是否存活
+引用计数法 Reference Counting
+
+可达性分析法
+通过GC Roots向下搜索，搜索不到的都可以回收。
+
+GC Roots
+虚拟机栈（栈帧中的本地变量表）中引用的对象
+方法区中类静态属性引用的对象
+方法区中常量引用的对象
+本地方法栈中JNI引用的对象。
+
+
+
+
+
+垃">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Hello World"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+  <!-- Chinese readability improvements -->
+    article {font-weight: 400;letter-spacing: .01rem;}
+    article .entry{line-height:2;}
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Hello World</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h1></h1>
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2018-05-03T15:06:47.917Z">2018-05-03</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+            </li>
+          </ul>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding"><article class="post">
+  
+  
+    <div class="post-content">
+  
+      
+      <div class="entry">
+        
+          <h3 id="判断对象是否存活"><a href="#判断对象是否存活" class="headerlink" title="判断对象是否存活"></a>判断对象是否存活</h3><ol>
+<li><p>引用计数法 Reference Counting</p>
+</li>
+<li><p>可达性分析法</p>
+<p>通过GC Roots向下搜索，搜索不到的都可以回收。</p>
+<ul>
+<li>GC Roots<ul>
+<li>虚拟机栈（栈帧中的本地变量表）中引用的对象</li>
+<li>方法区中类静态属性引用的对象</li>
+<li>方法区中常量引用的对象</li>
+<li>本地方法栈中JNI引用的对象。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><table>
+<thead>
+<tr>
+<th>算法</th>
+<th>流程</th>
+<th>图示</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标记-清除算法 Mark-Sweep</td>
+<td>1. 标记无用对象<br>2. 清除</td>
+<td></td>
+<td></td>
+<td>1. 两个过程效率都不高<br>2.空间问题，会产生内存碎片</td>
+</tr>
+<tr>
+<td>复制算法 Copying</td>
+<td>将内存分为相等的两块，当一块用完，将存活对象复制到另一块，然后将已使用的一次性清理</td>
+<td></td>
+<td>速度快</td>
+<td>空间利用率低</td>
+</tr>
+<tr>
+<td>标记-整理算法 Mark-Compact</td>
+<td>1.标记无用对象<br>2.让存活对象向一端移动，最后清理掉边界外的内存</td>
+<td></td>
+<td>无内存碎片</td>
+<td>速度慢</td>
+</tr>
+<tr>
+<td>分代收集算法 Generational Collection</td>
+<td>根据对象存活周期将内存分为几块，每块采取不同的算法</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><p>什么是内存担保？</p>
+<p>如果另一块Survivor没有足够的空间存放上一次新生代收集下来的存活对象时，这些对象将直接通过分配担保机制进入老年代。</p>
+</li>
+</ol>
+
+        
+      </div>
+      <footer>
+        
+          
+          
+          <div class="share">
+  
+
+    
+
+    
+
+    
+      <div class="g-plusone"></div>
+      <span style="margin-right:10px"></span>
+
+      <script type="text/javascript">
+        window.___gcfg = {lang: 'en-GB'};
+
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/platform.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+    
+
+    
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="halfer53">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    
+  
+</div>
+          
+<nav class="article-nav clearfix">
+ 
+ <div class="article-prev" >
+ <a href="/2018/05/04/java/ParallelScavenge和ParNew/" title="">
+  <i class="fa fa-long-arrow-left"></i>
+  <span>
+  (no title)</span>
+</a>
+</div>
+
+
+<div class="article-next">
+<a href="/2018/04/26/java/tomcat异常分析/"  title="tomcat异常分析">
+ <span>tomcat异常分析
+</span>
+<i class="fa fa-long-arrow-right"></i>
+</a>
+</div>
+
+</nav>
+
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+<section id="comment">
+  <h2 class="title">Comments</h2>
+
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:unei.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2018/05/10/os/内存/">内存</a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/04/java/ParallelScavenge和ParNew/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/03/java/gc基础/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/26/java/tomcat异常分析/">tomcat异常分析</a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/books/">books</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/golang/">golang</a><small>4</small></li>
+  
+    <li><a href="/categories/hystrix/">hystrix</a><small>2</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>6</small></li>
+  
+    <li><a href="/categories/kafka/">kafka</a><small>3</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+    <li><a href="/categories/mysql/">mysql</a><small>1</small></li>
+  
+    <li><a href="/categories/network/">network</a><small>7</small></li>
+  
+    <li><a href="/categories/os/">os</a><small>1</small></li>
+  
+    <li><a href="/categories/redis/">redis</a><small>1</small></li>
+  
+    <li><a href="/categories/ruby/">ruby</a><small>2</small></li>
+  
+    <li><a href="/categories/spring/">spring</a><small>3</small></li>
+  
+    <li><a href="/categories/zookeeper/">zookeeper</a><small>1</small></li>
+  
+    <li><a href="/categories/总结/">总结</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2018 hello world
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+		
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+
+<link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script> -->
+<!-- <script src="/js/gallery.js"></script> -->
+
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>

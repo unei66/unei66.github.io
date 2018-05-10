@@ -1,0 +1,876 @@
+<!DOCTYPE HTML>
+
+    <html lang="zh-Hans">
+  
+<head>
+  <meta charset="utf-8">
+  
+  <title>Page 4 | Hello World</title>
+  <meta name="author" content="hello world">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Hello World"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <meta http-equiv="Content-Language" content="zh-Hans"/>
+  
+
+  <link href="/img/favicon.png" rel="icon">
+  
+    <link rel="apple-touch-icon" href="/img/apple-icon.png">
+    <link rel="apple-touch-icon-precomposed" href="/img/apple-icon.png">
+    
+
+  <link rel="alternate" href="/atom.xml" title="Hello World" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  
+  <style type="text/css">
+  /* Tim Pietrusky advanced checkbox hack (Android <= 4.1.2) */
+body{ -webkit-animation: bugfix infinite 1s; }
+@-webkit-keyframes bugfix { from {padding:0;} to {padding:0;} }
+
+  
+  <!-- Chinese readability improvements -->
+    article {font-weight: 400;letter-spacing: .01rem;}
+    article .entry{line-height:2;}
+  
+
+  
+    article .post-content-index .entry{max-height: 550px; overflow:hidden;}
+  
+</style>
+
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', '', 'auto');
+  ga('send', 'pageview');
+ 
+</script>
+
+
+
+
+  
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="padding">
+	<div class="alignleft logo">
+	  <h1><a href="/">Hello World</a></h1>
+	</div>
+	<nav id="main-nav" class="alignright">
+		<input type="checkbox" id="toggle" />
+		<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu" onclick><i class="fa fa-bars"></i></label>
+	  <ul class="menu">
+	    
+	      <li><a href="/">Home</a></li>
+	    
+	      <li><a href="/archives">Archives</a></li>
+	    
+	    
+	  </ul>
+	</nav>
+	<div class="clearfix"></div>
+</div>
+</header>
+  <div id="page-heading-wrap">
+  	<div class="inner">
+      <div class="padding">
+    		
+          <h2></h2>
+        
+      </div>
+  	</div>
+  </div>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper" class="padding">
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2016/11/22/network/tcp-layer/">tcpip 笔记</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2016-11-22T15:33:00.000Z">2016-11-22</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h1 id="TCPIP-分层"><a href="#TCPIP-分层" class="headerlink" title="TCPIP 分层"></a>TCPIP 分层</h1><ul>
+<li>链路层 ARP/RARP…</li>
+<li>网络层 ICMP,IP,IGMP…</li>
+<li>运输层 TCP UDP…</li>
+<li>应用层 HTTP…</li>
+</ul>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2016/11/22/network/tcp-layer/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2016/11/07/network/tcp-state-tcpdump/">用过tcpdump观察TCP状态</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2016-11-07T15:33:00.000Z">2016-11-07</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h1 id="准备工作："><a href="#准备工作：" class="headerlink" title="准备工作："></a>准备工作：</h1><ul>
+<li>服务器：192.168.1.104 监听端口9999</li>
+<li>客户端：192.168.1.103 </li>
+</ul>
+<h1 id="TCP状态解析"><a href="#TCP状态解析" class="headerlink" title="TCP状态解析"></a>TCP状态解析</h1><h2 id="连接过程"><a href="#连接过程" class="headerlink" title="连接过程"></a>连接过程</h2><ul>
+<li>客户端向服务器端发送SYN请求，seq为X</li>
+<li>服务器向客户端返回SYN+ACK,seq为Y，ack为X+1</li>
+<li>客户端向服务器返回ACK，seq为Y+1,默认显示为偏移量1<br>因为一个SYN包会占用一个序列号，所以确认号加1</li>
+</ul>
+<h2 id="断开过程"><a href="#断开过程" class="headerlink" title="断开过程"></a>断开过程</h2><p>实验中服务器端先断开</p>
+<ul>
+<li>服务器端向客户端发送FIN请求，seq为A，ack为B</li>
+<li>客户端向服务器发送ACK，seq为A+1</li>
+<li>客户端向服务器发送FIN，seq为B，ack为A+1</li>
+<li>服务器向客户端发送ACK，seq为B+1</li>
+</ul>
+<p>tcpdump观察到的packet如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">~$ tcpdump -ien0 -S  host 192.168.1.104 and port 9999</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on en0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">--连接建立</span><br><span class="line">1. 23:59:20.542060 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [S], seq 107490516, win 65535, options [mss 1460,nop,wscale 5,nop,nop,TS val 1508416415 ecr 0,sackOK,eol], length 0</span><br><span class="line">2. 23:59:20.542277 IP 192.168.1.104.distinct &gt; 192.168.1.103.59850: Flags [S.], seq 2963356419, ack 107490517, win 28960, options [mss 1460,sackOK,TS val 1833338 ecr 1508416415,nop,wscale 7], length 0</span><br><span class="line">3. 23:59:20.542315 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [.], ack 2963356420, win 4117, options [nop,nop,TS val 1508416415 ecr 1833338], length 0</span><br><span class="line">--服务器向客户端发送数据</span><br><span class="line">4. 23:59:20.542616 IP 192.168.1.104.distinct &gt; 192.168.1.103.59850: Flags [P.], seq 2963356420:2963356425, ack 107490517, win 227, options [nop,nop,TS val 1833338 ecr 1508416415], length 5</span><br><span class="line">--客户端确认收到数据，ack</span><br><span class="line">5. 23:59:20.542661 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [.], ack 2963356425, win 4117, options [nop,nop,TS val 1508416415 ecr 1833338], length 0</span><br><span class="line">--客户端向服务器发送数据</span><br><span class="line">6. 23:59:21.677798 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [P.], seq 107490517:107490519, ack 2963356425, win 4117, options [nop,nop,TS val 1508417548 ecr 1833338], length 2</span><br><span class="line">--服务器向客户端发送ack</span><br><span class="line">7. 23:59:21.677990 IP 192.168.1.104.distinct &gt; 192.168.1.103.59850: Flags [.], ack 107490519, win 227, options [nop,nop,TS val 1834473 ecr 1508417548], length 0</span><br><span class="line">--客户端向服务器发送数据</span><br><span class="line">8. 23:59:25.171574 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [P.], seq 107490519:107490530, ack 2963356425, win 4117, options [nop,nop,TS val 1508421036 ecr 1834473], length 11</span><br><span class="line">--服务器向客户端发送ack</span><br><span class="line">9. 23:59:25.171797 IP 192.168.1.104.distinct &gt; 192.168.1.103.59850: Flags [.], ack 107490530, win 227, options [nop,nop,TS val 1837967 ecr 1508421036], length 0</span><br><span class="line">--连接断开阶段，服务器(104)发起</span><br><span class="line">--seq为104上一个收到的数据包的ack值，ack为104上一个收到的数据包的序列号＋该包携带的数据大小</span><br><span class="line">10. 23:59:27.469414 IP 192.168.1.104.distinct &gt; 192.168.1.103.59850: Flags [F.], seq 2963356425, ack 107490530, win 227, options [nop,nop,TS val 1840264 ecr 1508421036], length 0</span><br><span class="line">11. 23:59:27.469473 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [.], ack 2963356426, win 4117, options [nop,nop,TS val 1508423330 ecr 1840264], length 0</span><br><span class="line">12. 23:59:27.469603 IP 192.168.1.103.59850 &gt; 192.168.1.104.distinct: Flags [F.], seq 107490530, ack 2963356426, win 4117, options [nop,nop,TS val 1508423330 ecr 1840264], length 0</span><br><span class="line">13. 23:59:27.470063 IP 192.168.1.104.distinct &gt; 192.168.1.103.59850: Flags [.], ack 107490531, win 227, options [nop,nop,TS val 1840265 ecr 1508423330], length 0</span><br></pre></td></tr></table></figure>
+<h2 id="关于序列号"><a href="#关于序列号" class="headerlink" title="关于序列号"></a>关于序列号</h2><p>一个SYN/FIN/PSH包的seq为该机器收到的上一个SYN/FIN/PSH包的ack，ack为上一个收到的包的序列号＋该包携带的数据大小。<br>SYN/FIN包占用一个序列化，所以在确认的ack中需要加1。</p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2016/11/07/network/tcp-state-tcpdump/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2016/10/27/java/websites/">Java学习站点</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2016-10-27T07:23:00.000Z">2016-10-27</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="网址"><a href="#网址" class="headerlink" title="网址"></a>网址</h2><ol>
+<li><a href="https://www.voxxed.com/" target="_blank" rel="noopener">https://www.voxxed.com/</a></li>
+</ol>
+<h2 id="Lambda改写设计模式"><a href="#Lambda改写设计模式" class="headerlink" title="Lambda改写设计模式"></a>Lambda改写设计模式</h2><ul>
+<li><a href="https://www.voxxed.com/blog/2016/04/gang-four-patterns-functional-light-part-1/" target="_blank" rel="noopener">https://www.voxxed.com/blog/2016/04/gang-four-patterns-functional-light-part-1/</a></li>
+<li><a href="https://www.voxxed.com/blog/2016/05/gang-four-patterns-functional-light-part-2/" target="_blank" rel="noopener">https://www.voxxed.com/blog/2016/05/gang-four-patterns-functional-light-part-2/</a></li>
+<li><a href="https://www.voxxed.com/blog/2016/05/gang-four-patterns-functional-light-part-3/" target="_blank" rel="noopener">https://www.voxxed.com/blog/2016/05/gang-four-patterns-functional-light-part-3/</a></li>
+<li><a href="https://www.voxxed.com/blog/2016/05/gang-four-patterns-functional-light-part-4/" target="_blank" rel="noopener">https://www.voxxed.com/blog/2016/05/gang-four-patterns-functional-light-part-4/</a></li>
+</ul>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2016/10/27/java/websites/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2016/10/27/linux/centos7-change-yum-source/">Centos7 更新yum source为163</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2016-10-26T16:48:00.000Z">2016-10-27</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#/bin/bash</span><br><span class="line">mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.bk</span><br><span class="line">cd /etc/yum.repos.d/</span><br><span class="line">wget http://mirrors.163.com/.help/CentOS7-Base-163.repo</span><br><span class="line">yum clean all</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2016/10/27/linux/centos7-change-yum-source/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2016/10/27/linux/centos7-add-kernel-simple-module/">Centos7内核添加hello world模块</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2016-10-26T16:29:00.000Z">2016-10-27</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p><a href="https://wiki.centos.org/zh/HowTos/I_need_the_Kernel_Source" target="_blank" rel="noopener">https://wiki.centos.org/zh/HowTos/I_need_the_Kernel_Source</a></p>
+<h2 id="简单demo代码"><a href="#简单demo代码" class="headerlink" title="简单demo代码"></a>简单demo代码</h2><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;linux/init.h&gt;</span><br><span class="line">#include &lt;linux/module.h&gt;</span><br><span class="line">#include &lt;linux/kernel.h&gt;</span><br><span class="line">//必选</span><br><span class="line">//模块许可声明</span><br><span class="line">MODULE_LICENSE(&quot;GPL&quot;);</span><br><span class="line">//模块加载函数</span><br><span class="line">static int hello_init(void)</span><br><span class="line">&#123;</span><br><span class="line">    printk(KERN_ALERT &quot;hello,I am edsionte\n&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//模块卸载函数</span><br><span class="line">static void hello_exit(void)</span><br><span class="line">&#123;</span><br><span class="line">    printk(KERN_ALERT &quot;goodbye,kernel\n&quot;);</span><br><span class="line">&#125;</span><br><span class="line">//模块注册</span><br><span class="line">module_init(hello_init);</span><br><span class="line">module_exit(hello_exit);</span><br><span class="line">//可选</span><br><span class="line">MODULE_AUTHOR(&quot;edsionte Wu&quot;);</span><br><span class="line">MODULE_DESCRIPTION(&quot;This is a simple example!\n&quot;);</span><br><span class="line">MODULE_ALIAS(&quot;A simplest example&quot;);</span><br></pre></td></tr></table></figure>
+</code></pre><p>代码来自：<a href="http://edsionte.com/techblog/archives/1336" target="_blank" rel="noopener">http://edsionte.com/techblog/archives/1336</a></p>
+<h2 id="编译模块"><a href="#编译模块" class="headerlink" title="编译模块"></a>编译模块</h2><p>官方编译指南：<br><a href="https://wiki.centos.org/zh/HowTos/BuildingKernelModules" target="_blank" rel="noopener">https://wiki.centos.org/zh/HowTos/BuildingKernelModules</a></p>
+<p>上一下我的脚本(就是将官方的整合一下)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">/home/unei/rpmbuild/BUILD/kernel-3.10.0-327.36.2.el7/linux-3.10.0-327.36.2.el7.x86_64</span><br><span class="line">make oldconfig</span><br><span class="line">make menuconfig</span><br><span class="line">make prepare</span><br><span class="line">make modules_prepare</span><br><span class="line">make M=/home/unei/rpmbuild/DIY_MODULES/helloworld</span><br><span class="line">cp /home/unei/rpmbuild/DIY_MODULES/helloworld/hello.ko /lib/modules/`uname -r`/extra</span><br><span class="line">depmod -a</span><br></pre></td></tr></table></figure>
+<p>编译并安装后可能会遇到一下问题</p>
+<ul>
+<li>dmesg 可能会出现hello: no symbol version for module_layout</li>
+<li>/var/log/messages可能也会出现类似信息</li>
+</ul>
+<p>以上说明模块加载不成功</p>
+<h2 id="解决方法及验证命令"><a href="#解决方法及验证命令" class="headerlink" title="解决方法及验证命令"></a>解决方法及验证命令</h2><ul>
+<li>强制安装：modprobe -f hello</li>
+<li>查看kernel模块信息：lsmod</li>
+<li>查看某个模块信息：modinfo hello</li>
+</ul>
+<p>上述信息来自：<br><a href="https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s1-kernel-module-utils.html" target="_blank" rel="noopener">https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s1-kernel-module-utils.html</a></p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2016/10/27/linux/centos7-add-kernel-simple-module/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2016/10/15/golang/golang-new-make/">Golang new make</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2016-10-15T03:00:00.000Z">2016-10-15</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><ul>
+<li>new分配内存，用零初始化内存，返回新建类型的<b>地址</b>，*T</li>
+<li>eg:new(File)和&amp;File{}等同</li>
+</ul>
+<h2 id="make"><a href="#make" class="headerlink" title="make"></a>make</h2><ul>
+<li>make只能用来新建slice，map，channel，它返回一个初始化完成的<b>值类型</b>T，不是用0初始化，返回的不是地址。</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://golang.org/doc/effective_go.html" target="_blank" rel="noopener">effective go</a></li>
+</ul>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2016/10/15/golang/golang-new-make/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2015/10/31/network/tcp-connection-connect-close/">TCP连接的建立和终止</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2015-10-31T05:00:00.000Z">2015-10-31</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <p>##TCP连接建立<br>(1).服务器必须准备好接受外来的连接。通常通过调用socket，bind和listen方法完成，称之为被动打开（passive open）。</p>
+<p>(2).客户端通过调用connect发起主动打开（active open）。这导致客户TCP发送一个SYN(同步)分节，告诉服务器客户端将在(待建立的)<br>连接中发送的数据的初始序列号。通常SYN节不携带数据，其所在的IP数据报只含有一个IP首部，一个TCP首部及可能有的TCP选项。</p>
+<p>(3).服务器必须确认（ACK）客户的SYN，同时自己也得发送SYN分节，它含有服务器将在同一连接中发送的数据的初始序列号。服务器在单个分节中发送SYN和对客户SYN的ACK。</p>
+<p>(4).客户端必须确认服务器的SYN。</p>
+<p>这种交换至少需要3个分组，因此被称为TCP的三路握手(three-way handshake).<br>连接过程如下图所示<br><img style="width:400px;height:200px" src="images/unp/tcp-three-way-handshake.png"></p>
+<p>##TCP连接终止<br>TCP建立一个连接需要3个分组，终止一个连接需要4个分组<br>(1).某个应用首先调用close，我们称该端执行主动关闭(active close).该端的TCP发送一个FIN分节，表示数据发送完毕。</p>
+<p>(2).接收到FIN的对端执行被动关闭（passive close).这个FIN由TCP确认（ACK）。它的接受也作为一个文件结束符(end-of-file)传递给接收端应用进程(放在已排队等候该应用进程接受的任何其他数据之后)，因为FIN的接收意味着接收端应用进程在相应连接上再无额外数据可接收。</p>
+<p>(3).一段时间后，接收到这个文件结束符的应用进程将调用close关闭它的套接字。这导致它的TCP也发送一个FIN。</p>
+<p>(4).接收这个最终FIN的原发送端TCP（即执行主动关闭的那一端)确认这个FIN。</p>
+<p>在步骤2,3之间，从执行被动关闭一端到执行主动关闭一端流动数据是可能的，这称为半关闭(half-close).</p>
+<p>TCP终止的过程如下图所示</p>
+<p><img style="width:400px;height:200px" src="images/unp/tcp-close.png"></p>
+<p>一个完整的TCP连接所发生的实际分组交换情况，包括建立连接，数据传送和连接终止3个阶段。如下图所示：</p>
+<p><img style="width:500px;height:500px" src="images/unp/tcp-conn.png"></p>
+<p>##参考资料</p>
+<ol>
+<li>《UNIX网络编程 卷1：套接字联网API》</li>
+</ol>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2015/10/31/network/tcp-connection-connect-close/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2015/10/31/golang/go-note/">GO学习笔记</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2015-10-31T05:00:00.000Z">2015-10-31</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h2 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h2><ol>
+<li><p>defer</p>
+<p> defer语句会延迟函数的执行直到上层函数返回。延迟函数的参数会立刻生成，但是在上层函数返回前函数不会被调用。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func myDefer()&#123;</span><br><span class="line">    defer fmt.Println(&quot;world&quot;)</span><br><span class="line">    fmt.Println(&quot;hello&quot;)</span><br><span class="line">    fmt.Println(&quot;  &quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>defer栈</p>
+<p> 延迟函数调用被压入一个栈中。当函数返回时，会按照后进先出的顺序调用被延迟的函数调用。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">func myDeferStatck()&#123;</span><br><span class="line">    fmt.Println(&quot;counting&quot;)</span><br><span class="line">    for i:=0;i&lt;10;i++&#123;</span><br><span class="line">        defer fmt.Println(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Println(&quot;Done&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 输出：<br> counting<br> Done<br> 9<br> 8<br> 7<br> 6<br> 5<br> 4<br> 3<br> 2<br> 1<br> 0</p>
+</li>
+</ol>
+<p>##slice</p>
+<ol>
+<li><p>slice</p>
+<p> slice可以重新切片，创建一个新的slice值指向相同的数组<br> 表达式<br> s[lo:hi]<br> 表示从lo到hi-1的slice元素，含前端，不包含后端。因此<br> s[lo:lo]是空的，而<br> s[lo:lo+1]有一个元素。</p>
+</li>
+<li><p>构造slice</p>
+<p> slice由make函数创建。会分配一个全是零值的数组并且返回一个slice指向这个数组<br> a:=make([]int,5) //len(a)=5<br> 为了指定容量，可传递第三个参数到make:</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">b:=make([]int,0,5)  //len(b)=0,cap(b)=5</span><br><span class="line">b=b[:cap(b)] //len(b)=5,cap(b)=5</span><br><span class="line">b=b[1:] //len(b)=4,cap(b)=4</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>##goroutine</p>
+<ol>
+<li><p>goroutine</p>
+<p> goroutine是由go运行时环境管理的轻量级线程<br> goroutine在相同的地址空间中运行，因此访问共享内存必须进行同步。sync提供了这种可能，不过在go中并不经常用到。</p>
+</li>
+<li><p>channel</p>
+<p> channel是有类型的管道，可以用channel操作符&lt;-对其发送或者接收值。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ch &lt;- v //将v送入channel ch</span><br><span class="line">v:=&lt;-channel 	//从ch接收，并且赋值给v</span><br></pre></td></tr></table></figure>
+<p> 和map和slice一样，channel使用前必须创建</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch:=make(chan int)</span><br></pre></td></tr></table></figure>
+<p> 默认情况下，在另一端转备好之前，发送和接收都会阻塞，这使得goroutine可以在没有明确的锁或者竞态变量的情况下进行同步。</p>
+</li>
+<li><p>缓冲channel</p>
+<p> channel可以是带缓冲的。为make提供第二个参数作为缓冲长度来初始化一个缓冲channel。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ch:=make(chan int,100)</span><br></pre></td></tr></table></figure>
+<p> 向channel发送数据时，只有在缓冲区满的时候才会阻塞。当缓冲区清空的时候接受阻塞。</p>
+</li>
+<li><p>range 和close</p>
+<p> 发送者可以close一个channel来表示没有值会被发送了。<br> 接收者可以通过赋值语句的第二个参数来测试channel是否被关闭，当没有值可以接受并且channel已经被关闭，那么经过v,ok:=&lt;-ch之后ok会被设置为false<br> 循环 for i:=range c 会不断从channel接收值，直到它被关闭。</p>
+<ul>
+<li>只有发送者才能关闭channel，而不是接收者。向一个已经关闭的channel发送数据会引起panic。</li>
+<li>channel与文件不同，通常无需关闭。只有在需要告诉接收者没有更多的数据的时候才有必要进行关闭。例如终端一个range。</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2015/10/31/golang/go-note/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  
+    <div class="post-content-index">
+  
+      
+        <header>
+          <!-- <div class="icon"></div> -->
+            
+    
+      <h1 class="metro-title transition"><a href="/2015/10/31/golang/go-defer-panic/">golang异常处理</a></h1>
+    
+  
+          <ul>
+            <li>
+              <span class="heading-span">Posted on: </span>
+              <time datetime="2015-10-31T05:00:00.000Z">2015-10-31</time>
+            </li>
+            
+              <li>
+                <span class="heading-span">By: </span>
+
+                
+                  <a href="/">hello world</a>
+                
+
+              </li>
+            
+            <li>
+              <span class="heading-span">With: </span>
+              
+          </ul>
+        </header>
+      
+      <div class="entry">
+        
+          
+            <h1 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h1><ul>
+<li>A deferred function’s arguments are evaluated when the defer statement is evaluated.</li>
+<li>Deferred function calls are executed in Last In First Out order after the surrounding function returns</li>
+<li>Deferred functions may read and assign to the returning function’s named return values  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">func c() (i int) &#123;</span><br><span class="line">    defer func() &#123; i++ &#125;()</span><br><span class="line">    return 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="panic"><a href="#panic" class="headerlink" title="panic"></a>panic</h1><p>panic是一个内置的方法，可以停止普通流程然后开始panicking。当方法F调用panic，方法F停止，F上的defer方法会正常执行，然后F返回到调用者。对于调用者，F的行为类似于调用一个panic。程序继续执行栈直到当前routine的所有方法返回。panic可以通过直接调用。同样也可能通过运行时错误例如数据越界抛出。</p>
+<h1 id="recover"><a href="#recover" class="headerlink" title="recover"></a>recover</h1><p>recover是一个内置的方法，用来恢复对panicking routine的控制。recover只在defer方法中有效。在正常的执行中，调用recover会返回nil，没有任何作用。如果当前routine在panicking，调用recover会捕捉给panic的值<br>然后恢复正常执行。</p>
+<h1 id="引用："><a href="#引用：" class="headerlink" title="引用："></a>引用：</h1><p><a href="https://blog.golang.org/defer-panic-and-recover" target="_blank" rel="noopener">https://blog.golang.org/defer-panic-and-recover</a></p>
+
+          
+        
+      </div>
+      <footer>
+        
+          <div class="alignright">
+            <a href="/2015/10/31/golang/go-defer-panic/#more" class="more-link">Continue Reading<i class="fa fa-long-arrow-right fa-1"></i></a>
+          </div>
+        
+        <div class="clearfix"></div>
+      </footer>
+    </div>
+</article>
+
+
+
+
+
+<nav id="pagination">
+  
+    <a href="/page/3/" class="alignleft prev">Prev</a>
+  
+  
+  <div class="clearfix"></div>
+</nav></div></div>
+    <aside id="sidebar" class="alignright"><div class="padding">
+	
+	  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:unei.me">
+  </form>
+</div>
+	
+	  
+<div class="widget recent-post">
+  <h3 class="title">Recent Posts</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2018/05/10/os/内存/">内存</a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/04/java/ParallelScavenge和ParNew/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/05/03/java/gc基础/"></a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/26/java/tomcat异常分析/">tomcat异常分析</a>
+      </li>
+    
+      <li>
+        <a href="/2018/04/17/kafka/kafka-reassign-partitions/">kafka-reassign-partitions</a>
+      </li>
+    
+  </ul>
+</div>
+
+	
+	  
+<div class="widget category">
+  <h3 class="title">Categories</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/books/">books</a><small>1</small></li>
+  
+    <li><a href="/categories/git/">git</a><small>1</small></li>
+  
+    <li><a href="/categories/golang/">golang</a><small>4</small></li>
+  
+    <li><a href="/categories/hystrix/">hystrix</a><small>2</small></li>
+  
+    <li><a href="/categories/java/">java</a><small>6</small></li>
+  
+    <li><a href="/categories/kafka/">kafka</a><small>3</small></li>
+  
+    <li><a href="/categories/linux/">linux</a><small>3</small></li>
+  
+    <li><a href="/categories/mysql/">mysql</a><small>1</small></li>
+  
+    <li><a href="/categories/network/">network</a><small>7</small></li>
+  
+    <li><a href="/categories/os/">os</a><small>1</small></li>
+  
+    <li><a href="/categories/redis/">redis</a><small>1</small></li>
+  
+    <li><a href="/categories/ruby/">ruby</a><small>2</small></li>
+  
+    <li><a href="/categories/spring/">spring</a><small>3</small></li>
+  
+    <li><a href="/categories/zookeeper/">zookeeper</a><small>1</small></li>
+  
+    <li><a href="/categories/总结/">总结</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+	
+	  
+	
+</div></aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="padding">
+	<div class="alignleft">
+	  
+	  &copy; 2018 hello world
+	  
+	  Powerd by <a href="http://hexo.io/" target="_blank">hexo</a>
+	  and Theme by <a href="https://github.com/halfer53/metro-light" target="_blank">metro-light</a>
+	</div>
+
+	<div class="alignright">
+		
+		
+		
+		
+		
+		
+		
+	</div>
+
+	<div class="clearfix"></div>
+</div>
+
+<div class="scroll-top"><i class="fa fa-arrow-circle-up"></i></div></footer>
+  
+
+
+<link href='http://apps.bdimg.com/libs/fontawesome/4.1.0/css/font-awesome.css' rel='stylesheet' type='text/css'>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+
+
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.js"></script> -->
+<!-- <script src="/js/gallery.js"></script> -->
+
+
+
+<script type="text/javascript">
+$(window).scroll(function() {
+
+    if($(this).scrollTop() > 400) {
+        $('.scroll-top').fadeIn(200);
+    } else {
+        $('.scroll-top').fadeOut(200);
+    }
+});
+
+$('.scroll-top').bind('click', function(e) {
+    e.preventDefault();
+    $('body,html').animate({scrollTop:0},200);
+});
+</script>
+
+
+</body>
+</html>
